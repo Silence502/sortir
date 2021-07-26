@@ -3,7 +3,7 @@
         <li><a href="{{ path('main_index') }}">Accueil</a></li>
 
         {% if app.user %}
-            <li><a href="#">Mon profil</a></li>
+            <li><a href="{{ path('user_profile') }}">Mon profil</a></li>
             <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
         {% else %}
             <li><a href="{{ path('app_login') }}">Se connecter</a></li>
