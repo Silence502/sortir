@@ -3,6 +3,12 @@
 {% block title %}{{ parent()}} | Inscription{% endblock %}
 
 {% block body %}
-    <h1>Mon profil</h1>
-    {# TODO: Show user profile #}
+    <h1>Profile de {{ currentUser.nickname }}</h1>
+    <ul>
+        <li>Prénom : {{ currentUser.firstname }}</li>
+        <li>Nom : {{ currentUser.lastname }}</li>
+        <li>Téléphone : {{ currentUser.phoneNumber }}</li>
+        <li>Email : {{ currentUser.email}}</li>
+        <li>Campus : {{ currentUser.campus.name }}</li>
+    </ul>
 {% endblock %}
