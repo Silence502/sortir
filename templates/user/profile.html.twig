@@ -3,12 +3,13 @@
 {% block title %}{{ parent()}} | Inscription{% endblock %}
 
 {% block body %}
-    <h1>Profile de {{ currentUser.nickname }}</h1>
+    <h1>Profile de {{ app.user.nickname }}</h1>
     <ul>
-        <li>Prénom : {{ currentUser.firstname }}</li>
-        <li>Nom : {{ currentUser.lastname }}</li>
-        <li>Téléphone : {{ currentUser.phoneNumber }}</li>
-        <li>Email : {{ currentUser.email}}</li>
-        <li>Campus : {{ currentUser.campus.name }}</li>
+        <li>Prénom : {{ app.user.firstname }}</li>
+        <li>Nom : {{ app.user.lastname | upper}}</li>
+        <li>Téléphone : {{ app.user.phoneNumber }}</li>
+        <li>Email : {{ app.user.email}}</li>
+        <li>Campus : {{ app.user.campus.name }}</li>
     </ul>
+    <a href="{{ path('user_update', {'id': app.user.id}) }}">Modifier</a>
 {% endblock %}

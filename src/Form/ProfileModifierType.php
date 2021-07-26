@@ -16,11 +16,9 @@ class ProfileModifierType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class, [
-                'label' => 'Email '
-            ])
-//            ->add('roles')
-//            ->add('password')
+//            ->add('email', EmailType::class, [
+//                'label' => 'Email '
+//            ])
             ->add('nickname', TextType::class, [
                 'label' => 'Pseudo '
             ])
@@ -31,15 +29,11 @@ class ProfileModifierType extends AbstractType
                 'label'=> 'nom '
             ])
             ->add('phoneNumber', TextType::class, [
-                'label' => 'Téléphone '
+                'label' => 'Téléphone ',
+                'required' => false
             ])
 //            ->add('isActive')
 //            ->add('tripsRegistered')
-            ->add('campus', EntityType::class, [
-                'label' => 'Campus ',
-                'class' => Campus::class,
-                'choice_label' => 'name'
-            ])
         ;
     }
 
