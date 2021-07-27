@@ -11,6 +11,7 @@ use Doctrine\ORM\ORMException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -30,16 +31,17 @@ class UserController extends AbstractController
 
     /**
      * @param Request $request
+     * @param EntityManagerInterface $entityManager
      * @param UserRepository $userRepository
      * @param $id
      * @return Response
-     * @Route("/update/{id}", name="update")
      * @throws NonUniqueResultException
-     * @throws ORMException
+     * @Route("/update/{id}", name="update")
      */
     public function profileUpdate(Request $request,
                                   EntityManagerInterface $entityManager,
                                   UserRepository $userRepository,
+                                  UserPasswordHasherInterface $passwordEncoder,
                                   $id): Response
     {
         //Getting the current user
@@ -58,7 +60,8 @@ class UserController extends AbstractController
             $currentUser->setLastname($form->get('lastname')->getData());
             $currentUser->setPhoneNumber($form->get('phoneNumber')->getData());
 //            $currentUser->setEmail($form->get('email')->getData());
-            $currentUser->setPassword($form->get('plainPassword')->getData());
+            $currentUser->setPassword($passwordEncoder->hashPassword($currentUser,
+                $form->get('plainPassword')->getData()));
             $entityManager->flush();
 
             return $this->redirectToRoute('main_index');

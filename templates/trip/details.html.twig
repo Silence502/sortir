@@ -1,10 +1,31 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ parent() }} | Détails de sortie{% endblock %}
+
 {% block body %}
-
+    <h2>{{ sortie.name }}</h2>
+    <div>
+        <ul>
+            <li>Date et heures de la sortie : {{ sortie.dateStartTime | date('d M Y à H:i') }} heure</li>
+            <li>Date limite d'inscription : {{ sortie.registrationDeadline | date('d M Y à H:i')}} heure</li>
+            <li>Nombre de places disponibles : {{ sortie.maxRegistrations }}</li>
+            <li>Durée : {{ sortie.duration | date('h:i')}}</li>
+            <li>Description et infos : {{ sortie.tripInfos}}</li>
+        </ul>
+    </div>
+    <div>
+        <ul>
+            <li>Campus : {{ sortie.campusOrganizer.name }}</li>
+            <li>Lieu : {{ sortie.place.name }}</li>
+            <li>Rue : {{ sortie.place.street }}</li>
+            <li>Code postal : {{ sortie.place.city.zipCode }}</li>
+            {% if sortie.place.latitude and sortie.place.longitude %}
+                <li>Latitude : {{ sortie.place.latitude }}</li>
+                <li>Longitude : {{ sortie.place.longitude }}</li>
+            {% else %}
+                <li>Latitude : Non renseigné</li>
+                <li>Longitude : Non renseigné</li>
+            {% endif %}
+        </ul>
+    </div>
 {% endblock %}
-
-{% block title %}
-
-{% endblock %}
-

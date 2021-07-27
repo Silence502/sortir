@@ -3,7 +3,7 @@
 {% block title %}{{ parent()}} | Inscription{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <h2>S'inscrire</h2>
 
     {{ form_start(registrationForm) }}
 
@@ -17,4 +17,7 @@
 
     <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
+    <form method="get" action="{{ path('app_login') }}">
+        <button type="submit">Retour</button>
+    </form>
 {% endblock %}

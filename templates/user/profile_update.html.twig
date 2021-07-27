@@ -3,7 +3,7 @@
 {% block title %}{{ parent() }} | Modification profil{% endblock %}
 
 {% block body %}
-
+    <h2>Modification de {{ currentUser.nickname }}</h2>
     {{ form_start(profileModifierType) }}
 
     {{ form_row(profileModifierType.nickname, {'value' : currentUser.nickname}) }}
@@ -11,9 +11,13 @@
     {{ form_row(profileModifierType.lastname, {'value' : currentUser.lastname}) }}
     {{ form_row(profileModifierType.phoneNumber, {'value' : currentUser.phoneNumber}) }}
 {#    {{ form_row(profileModifierType.email, {'value' : currentUser.email}) }}#}
-    {{ form_row((profileModifierType.plainPassword)) }}
+    {{ form_row(profileModifierType.plainPassword) }}
     <button type="submit" class="btn">Valider</button>
 
     {{ form_end(profileModifierType) }}
+
+    <form method="post" action="{{ path('user_profile', {'id': app.user.id}) }}">
+        <button type="submit">Annuler</button>
+    </form>
 
 {% endblock %}

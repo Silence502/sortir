@@ -3,7 +3,7 @@
 {% block title %}{{ parent()}} | Inscription{% endblock %}
 
 {% block body %}
-    <h1>Profile de {{ app.user.nickname }}</h1>
+    <h2>Profile de {{ app.user.nickname }}</h2>
     <ul>
         <li>Prénom : {{ app.user.firstname }}</li>
         <li>Nom : {{ app.user.lastname | upper}}</li>
