@@ -3,7 +3,7 @@ body {
     background: radial-gradient(circle, rgba(0,206,255,1) 0%, rgba(29,9,121,1) 100%);
     background-attachment: fixed;
     color: #FFF;
-    font-family: 'Markazi Text', serif;
+    font-family: 'Ibarra Real Nova', serif;
 }
 
 h1 {
@@ -11,7 +11,7 @@ h1 {
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 65%;
     margin: auto;
     padding: 5px;
 }
@@ -43,15 +43,30 @@ main {
     flex: 1;
 }
 
+nav {
+    position: fixed;
+    background : black;
+    top : 0;
+    width : 15%;
+    height : 100%;
+    text-align : center;
+}
+
 nav ul {
+    top : 100px;
     font-size : 2rem;
-    display: flex;
+    display: block;
     list-style: none;
     padding-left: 0;
 }
 
 nav li {
     margin-right: 1rem;
+}
+
+.deconnecter {
+    position : sticky;
+    bottom : 0;
 }
 
 label {
@@ -64,4 +79,5 @@ input, textarea, select {
     max-width: 50%;
     width: 150px;
 }
+
 

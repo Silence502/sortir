@@ -1,12 +1,19 @@
 <nav>
+    <a href="{{ path('main_index') }}"><img src="{{ asset('img/logo.svg') }}" alt="Sortir"></a>
+
     {% if app.user %}
+
         <ul>
             <li><a href="{{ path('main_index') }}">Accueil</a></li>
             <li><a href="#">Villes</a></li>
             <li><a href="#">Campus</a></li>
             <li><a href="{{ path('user_profile', {'id': app.user.id}) }}">Mon profil</a></li>
-            <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+
         </ul>
+
+        <div class="deconnecter">
+        <a href="{{ path('app_logout') }}">Se déconnecter</a>
+        </div>
     {% endif %}
-    <hr>
 </nav>
+
