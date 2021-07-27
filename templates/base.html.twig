@@ -7,10 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}ENI Sortie{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
+
+    <link rel="icon" href="{{ asset('img/logo/logo-travel.jpg') }}">
 </head>
 <body>
 
 <header>
+    {% include 'inc/header.html.twig' %}
     {% include 'inc/nav.html.twig' %}
 </header>
 

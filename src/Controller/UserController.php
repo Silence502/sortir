@@ -39,17 +39,16 @@ class UserController extends AbstractController
      */
     public function profileUpdate(Request $request,
                                   EntityManagerInterface $entityManager,
+                                  UserRepository $userRepository,
                                   $id): Response
     {
         //Getting the current user
-//        $currentUser = $userRepository->findById($id);
-        $currentUser = $entityManager->getRepository(User::class)->findById($id);
+        $currentUser = $userRepository->findById($id);
         if (!$currentUser) {
             throw $this->createNotFoundException();
         }
 
         //Building form
-        $user = new User();
         $form = $this->createForm(ProfileModifierType::class, new User());
         $form->handleRequest($request);
 
@@ -59,6 +58,7 @@ class UserController extends AbstractController
             $currentUser->setLastname($form->get('lastname')->getData());
             $currentUser->setPhoneNumber($form->get('phoneNumber')->getData());
 //            $currentUser->setEmail($form->get('email')->getData());
+            $currentUser->setPassword($form->get('plainPassword')->getData());
             $entityManager->flush();
 
             return $this->redirectToRoute('main_index');

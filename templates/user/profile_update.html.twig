@@ -11,6 +11,7 @@
     {{ form_row(profileModifierType.lastname, {'value' : currentUser.lastname}) }}
     {{ form_row(profileModifierType.phoneNumber, {'value' : currentUser.phoneNumber}) }}
 {#    {{ form_row(profileModifierType.email, {'value' : currentUser.email}) }}#}
+    {{ form_row((profileModifierType.plainPassword)) }}
     <button type="submit" class="btn">Valider</button>
 
     {{ form_end(profileModifierType) }}
