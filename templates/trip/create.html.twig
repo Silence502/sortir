@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Créer une sortie | {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {{ form_start(tripForm) }}
+    {{ form_widget(tripForm) }}
+    <button>Créer</button>
+    {{ form_end(tripForm) }}
+{% endblock %}
+
