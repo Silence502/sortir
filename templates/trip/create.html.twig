@@ -5,9 +5,11 @@
 {% endblock %}
 
 {% block body %}
-    {{ form_start(tripForm) }}
-    {{ form_widget(tripForm) }}
-    <button>Créer</button>
-    {{ form_end(tripForm) }}
+    <div>
+        {{ form_start(tripForm) }}
+        {{ form_widget(tripForm) }}
+        <button>Créer</button>
+        {{ form_end(tripForm) }}
+    </div>
 {% endblock %}
 
