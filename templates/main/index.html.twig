@@ -3,7 +3,7 @@
 {% block title %}{{ parent() }} | Accueil{% endblock %}
 
 {% block body %}
-    <h1>Page d'accueil</h1>
+    <h2>Page d'accueil</h2>
     <div>
         <p>Date du jour : {{ "now" | date('d/m/Y') }}</p>
         {% if app.user %}
@@ -12,5 +12,9 @@
             <p>Participant : Non connecté(e)</p>
         {% endif %}
     </div>
+
+    {% if app.user %}
+        {% include 'trip/list.html.twig' %}
+    {% endif %}
     {# TODO: To list the trips with sorting option #}
 {% endblock %}

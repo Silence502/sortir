@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Date;
 
 class TripType extends AbstractType
 {
@@ -21,29 +22,29 @@ class TripType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom de la sortie :'
+                'label' => 'Nom de la sortie '
             ])
             ->add('dateStartTime', DateTimeType::class, [
-                'label' => 'Date et heure de début :',
+                'label' => 'Date et heure de début ',
                 'html5' => true,
             ])
             ->add('duration', TimeType::class, [
-                'label' => 'Durée :',
+                'label' => 'Durée ',
                 'input'  => 'datetime',
                 'widget' => 'choice',
             ])
             ->add('registrationDeadline', DateTimeType::class, [
-                'label' => 'Date limite d\'inscription :',
+                'label' => 'Date limite d\'inscription ',
                 'html5' => true,
             ])
             ->add('maxRegistrations', IntegerType::class, [
                 'label' => 'Nombre de places :'
             ])
             ->add('tripInfos', TextareaType::class, [
-                'label' => 'Description et infos :'
+                'label' => 'Description et infos '
             ])
             ->add('place', EntityType::class, [
-                'label' => 'Lieu',
+                'label' => 'Lieu ',
                 'class' => Place::class,
                 'choice_label' => 'name'
             ])

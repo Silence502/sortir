@@ -5,11 +5,13 @@
 {% endblock %}
 
 {% block body %}
-    <div>
-        {{ form_start(tripForm) }}
-        {{ form_widget(tripForm) }}
-        <button>Créer</button>
-        {{ form_end(tripForm) }}
-    </div>
-{% endblock %}
+    <h2>Créer une sortie</h2>
+    {{ form_start(tripForm) }}
+    {{ form_widget((tripForm)) }}
+    <button type="submit">Créer</button>
+    {{ form_end(tripForm) }}
 
+    <form method="post" action="{{ path('main_index') }}">
+        <button type="submit">Annuler</button>
+    </form>
+{% endblock %}

@@ -3,12 +3,21 @@
 {% block title %}{{ parent()}} | Inscription{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <h2>S'inscrire</h2>
 
-    <div>
-        {{ form_start(registrationForm, {attr: {novalidate: 'novalidate'}}) }}
-        {{ form_widget(registrationForm) }}
-        <button type="submit">Register</button>
-        {{ form_end(registrationForm) }}
-    </div>
+    {{ form_start(registrationForm) }}
+
+    {{ form_row(registrationForm.nickname) }}
+    {{ form_row(registrationForm.firstname) }}
+    {{ form_row(registrationForm.lastname) }}
+    {{ form_row(registrationForm.phoneNumber) }}
+    {{ form_row(registrationForm.email) }}
+    {{ form_row(registrationForm.plainPassword) }}
+    {{ form_row(registrationForm.campus) }}
+
+    <button type="submit" class="btn">Register</button>
+    {{ form_end(registrationForm) }}
+    <form method="get" action="{{ path('app_login') }}">
+        <button type="submit">Retour</button>
+    </form>
 {% endblock %}
