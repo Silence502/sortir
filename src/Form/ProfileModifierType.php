@@ -2,11 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\Campus;
 use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -34,7 +31,8 @@ class ProfileModifierType extends AbstractType
             ])
             ->add('phoneNumber', TextType::class, [
                 'label' => 'Téléphone ',
-                'required' => false
+                'required' => false,
+                'empty_data' => 'COUCOU'
             ])
 //            ->add('isActive')
 //            ->add('tripsRegistered')

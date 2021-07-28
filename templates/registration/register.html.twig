@@ -17,7 +17,7 @@
 
     <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
-    <form method="get" action="{{ path('app_login') }}">
+    <form method="post" action="{{ path('app_login') }}">
         <button type="submit">Retour</button>
     </form>
 {% endblock %}
