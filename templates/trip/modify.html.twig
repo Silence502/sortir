@@ -1,12 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Créer une sortie | {{ parent() }}
+
 {% endblock %}
 
 {% block body %}
-
-    <h2>Créer une sortie</h2>
 
     {{ form_start(tripForm) }}
 
@@ -21,13 +19,12 @@
     {{ form_row(tripForm.publier_la_sortie) }}
 
     {{ form_end(tripForm) }}
-    {#
+
     <a href="{{ path('sortie_liste') }}" title="Annuler la création de sortie">
         <button>Annuler</button>
     </a>
-    #}
-    <form method="post" action="{{ path('main_index') }}">
-        <button type="submit">Annuler</button>
-    </form>
-    
+
 {% endblock %}
+
+
+
