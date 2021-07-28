@@ -7,6 +7,7 @@ use App\Entity\Trip;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -48,6 +49,9 @@ class TripType extends AbstractType
                 'class' => Place::class,
                 'choice_label' => 'name'
             ])
+            ->add('enregistrer', SubmitType::class)
+            ->add('publier_la_sortie', SubmitType::class)
+            ->add('supprimer_la_sortie', SubmitType::class)
         ;
     }
 

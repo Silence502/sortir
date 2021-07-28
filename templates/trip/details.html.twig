@@ -1,31 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} | Détails de sortie{% endblock %}
+{% block title %}
+    {{ trip.name }} | {{ parent() }}
+{% endblock %}
 
 {% block body %}
-    <h2>{{ sortie.name }}</h2>
-    <div>
-        <ul>
-            <li>Date et heures de la sortie : {{ sortie.dateStartTime | date('d M Y à H:i') }} heure</li>
-            <li>Date limite d'inscription : {{ sortie.registrationDeadline | date('d M Y à H:i')}} heure</li>
-            <li>Nombre de places disponibles : {{ sortie.maxRegistrations }}</li>
-            <li>Durée : {{ sortie.duration | date('h:i')}}</li>
-            <li>Description et infos : {{ sortie.tripInfos}}</li>
-        </ul>
-    </div>
-    <div>
-        <ul>
-            <li>Campus : {{ sortie.campusOrganizer.name }}</li>
-            <li>Lieu : {{ sortie.place.name }}</li>
-            <li>Rue : {{ sortie.place.street }}</li>
-            <li>Code postal : {{ sortie.place.city.zipCode }}</li>
-            {% if sortie.place.latitude and sortie.place.longitude %}
-                <li>Latitude : {{ sortie.place.latitude }}</li>
-                <li>Longitude : {{ sortie.place.longitude }}</li>
-            {% else %}
-                <li>Latitude : Non renseigné</li>
-                <li>Longitude : Non renseigné</li>
-            {% endif %}
-        </ul>
-    </div>
+    <section>
+        <h2>Détails de la sortie</h2>
+
+        <table>
+            <tr>
+                <td>Nom de la sortie:</td>
+                <td>{{ trip.name }}</td>
+                <td>Campus</td>
+                <td>{{ trip.campusOrganizer.name }}</td>
+            </tr>
+            <tr>
+                <td>Date et heure de la sortie:</td>
+                <td>{{ trip.dateStartTime|date('d/m/Y H:i') }}</td>
+                <td>Lieu</td>
+                <td>{{ trip.place.name }}</td>
+            </tr>
+            <tr>
+                <td>Date limite d'inscription:</td>
+                <td>{{ trip.registrationDeadline|date('d/m/Y') }}</td>
+                <td>Rue</td>
+                <td>{{ trip.place.street }}</td>
+            </tr>
+            <tr>
+                <td>Nombres de places restantes:</td>
+                <td>{{ trip.maxRegistrations - trip.usersRegistered|length }}/{{ trip.maxRegistrations }}</td>
+                <td>Ville</td>
+                <td>{{ trip.place.city.name }}, {{ trip.place.city.zipCode }}</td>
+            </tr>
+            <tr>
+                <td>Durée:</td>
+                <td>{{ trip.duration|date('H:i') }}</td>
+                <td>Latitude</td>
+                <td>{{ (trip.place.latitude)? trip.place.latitude : 'non renseignée' }}</td>
+            </tr>
+            <tr>
+                <td>Description et infos:</td>
+                <td>{{ (trip.tripInfos)? trip.tripInfos : 'Aucune infos renseignée' }}</td>
+                <td>Longitude</td>
+                <td>{{ (trip.place.longitude)? trip.place.longitude : 'non renseignée' }}</td>
+            </tr>
+        </table>
+
+    </section>
 {% endblock %}
