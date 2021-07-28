@@ -50,6 +50,7 @@ class TripType extends AbstractType
             ])
             ->add('enregistrer', SubmitType::class)
             ->add('publier_la_sortie', SubmitType::class)
+            ->add('supprimer_la_sortie', SubmitType::class)
         ;
     }
 

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+
+    {{ form_start(tripForm) }}
+
+    {{ form_row(tripForm.name) }}
+    {{ form_row(tripForm.dateStartTime) }}
+    {{ form_row(tripForm.duration) }}
+    {{ form_row(tripForm.registrationDeadline) }}
+    {{ form_row(tripForm.maxRegistrations) }}
+    {{ form_row(tripForm.tripInfos) }}
+    {{ form_row(tripForm.place) }}
+    {{ form_row(tripForm.enregistrer) }}
+    {{ form_row(tripForm.publier_la_sortie) }}
+
+    {{ form_end(tripForm) }}
+
+    <a href="{{ path('sortie_liste') }}" title="Annuler la création de sortie">
+        <button>Annuler</button>
+    </a>
+
+{% endblock %}
+
+
+

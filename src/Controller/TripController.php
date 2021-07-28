@@ -77,6 +77,8 @@ class TripController extends AbstractController
         if ($tripForm->isSubmitted() && $tripForm->isValid()) {
             $organizer = $userRepository->find($this->getUser());
 
+            $trip->setState($stateRepository->find(1));
+
             $trip->setOrganizer($this->getUser());
             $trip->setCampusOrganizer($organizer->getCampus());
 
@@ -87,8 +89,6 @@ class TripController extends AbstractController
             if ($tripForm->get('publier_la_sortie')->isClicked()) {
                 $trip->setIsPublished(true);
             }
-
-            $trip->setState($stateRepository->find(1));
 
             $entityManager->persist($trip);
             $entityManager->flush();
@@ -103,12 +103,56 @@ class TripController extends AbstractController
     }
 
     /**
-     * @Route("/modifier", name="modifier")
+     * @Route("/modifier/{id}", name="modifier")
      */
-    public function modifier(): Response
+    public function modify(
+        Request $request,
+        int $id,
+        TripRepository $tripRepository,
+        UserRepository $userRepository,
+        StateRepository $stateRepository,
+        EntityManagerInterface $entityManager
+    ): Response
     {
-        return $this->render('sortie/modifier.html.twig', [
-            'controller_name' => 'TripController',
+        $trip = $tripRepository->find($id);
+
+        $tripForm = $this->createForm(TripType::class, $trip);
+
+        $tripForm->handleRequest($request);
+
+        if ($tripForm->isSubmitted() && $tripForm->isValid()) {
+            $organizer = $userRepository->find($this->getUser());
+
+            $trip->setState($stateRepository->find(1));
+
+            $trip->setOrganizer($this->getUser());
+            $trip->setCampusOrganizer($organizer->getCampus());
+
+            if ($tripForm->get('enregistrer')->isClicked()) {
+                $trip->setIsPublished(false);
+            }
+
+            if ($tripForm->get('publier_la_sortie')->isClicked()) {
+                $trip->setIsPublished(true);
+            }
+
+            if ($tripForm->get('supprimer_la_sortie')->isClicked()) {
+                $entityManager->remove($trip);
+                $entityManager->flush();
+                $this->addFlash('success', 'Sortie supprimée');
+                return $this->redirectToRoute('main_index');
+            }
+
+            $entityManager->persist($trip);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Sortie créée');
+            return $this->redirectToRoute('main_index');
+        }
+
+        return $this->render('trip/create.html.twig', [
+            'trip' => $trip,
+            'tripForm' => $tripForm->createView()
         ]);
     }
 
