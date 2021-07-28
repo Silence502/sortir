@@ -1,10 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-
-{% endblock %}
-
 {% block title %}
-
+    {{ trip.name }} | {{ parent() }}
 {% endblock %}
+
+{% block body %}
+    <section>
+        <h2>Détails de la sortie</h2>
+
+        <table>
+            <tr>
+                <td>Nom de la sortie:</td>
+                <td>{{ trip.name }}</td>
+                <td>Campus</td>
+                <td>{{ trip.campusOrganizer.name }}</td>
+            </tr>
+            <tr>
+                <td>Date et heure de la sortie:</td>
+                <td>{{ trip.dateStartTime|date('d/m/Y h:i') }}</td>
+                <td>Lieu</td>
+                <td>{{ trip.place.name }}</td>
+            </tr>
+            <tr>
+                <td>Date limite d'inscription:</td>
+                <td>{{ trip.registrationDeadline|date('d/m/Y') }}</td>
+                <td>Rue</td>
+                <td>{{ trip.place.street }}</td>
+            </tr>
+            <tr>
+                <td>Nombres de places restantes:</td>
+                <td>{{ trip.maxRegistrations - trip.usersRegistered|length }}/{{ trip.maxRegistrations }}</td>
+                <td>Ville</td>
+                <td>{{ trip.place.city.name }}, {{ trip.place.city.zipCode }}</td>
+            </tr>
+            <tr>
+                <td>Durée:</td>
+                <td>{{ trip.duration|date('H:i') }}</td>
+                <td>Latitude</td>
+                <td>{{ (trip.place.latitude)? trip.place.latitude : 'non renseignée' }}</td>
+            </tr>
+            <tr>
+                <td>Description et infos:</td>
+                <td>{{ (trip.tripInfos)? trip.tripInfos : 'Aucune infos renseignée' }}</td>
+                <td>Longitude</td>
+                <td>{{ (trip.place.longitude)? trip.place.longitude : 'non renseignée' }}</td>
+            </tr>
+        </table>
+
+    </section>
+{% endblock %}
+
 

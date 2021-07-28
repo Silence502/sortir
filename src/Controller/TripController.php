@@ -52,10 +52,10 @@ class TripController extends AbstractController
         TripRepository $tripRepository
     ): Response
     {
-        $sortie = $tripRepository->find($id);
+        $trip = $tripRepository->find($id);
 
         return $this->render('trip/details.html.twig', [
-            "sortie" => $sortie,
+            "trip" => $trip,
         ]);
     }
 
@@ -79,8 +79,16 @@ class TripController extends AbstractController
 
             $trip->setOrganizer($this->getUser());
             $trip->setCampusOrganizer($organizer->getCampus());
+
+            if ($tripForm->get('enregistrer')->isClicked()) {
+                $trip->setIsPublished(false);
+            }
+
+            if ($tripForm->get('publier_la_sortie')->isClicked()) {
+                $trip->setIsPublished(true);
+            }
+
             $trip->setState($stateRepository->find(1));
-            $trip->setIsPublished(true);
 
             $entityManager->persist($trip);
             $entityManager->flush();
