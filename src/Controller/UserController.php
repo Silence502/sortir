@@ -59,7 +59,6 @@ class UserController extends AbstractController
             $currentUser->setFirstname($form->get('firstname')->getData());
             $currentUser->setLastname($form->get('lastname')->getData());
             $currentUser->setPhoneNumber($form->get('phoneNumber')->getData());
-//            $currentUser->setEmail($form->get('email')->getData());
             $currentUser->setPassword($passwordEncoder->hashPassword($currentUser,
                 $form->get('plainPassword')->getData()));
             $entityManager->flush();

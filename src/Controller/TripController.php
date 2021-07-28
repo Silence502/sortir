@@ -178,7 +178,7 @@ class TripController extends AbstractController
 
         $this->addFlash('success', $flashMessage);
 
-        return $this->redirectToRoute('sortie_liste');
+        return $this->redirectToRoute('main_index');
 
     }
 
@@ -202,7 +202,7 @@ class TripController extends AbstractController
         $flashMessage = 'Inscription à la sortie ' . $trip->getName();
 
         $this->addFlash('success', $flashMessage);
-        return $this->redirectToRoute('sortie_liste');
+        return $this->redirectToRoute('main_index');
 
     }
 }
