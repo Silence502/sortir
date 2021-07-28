@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent()}} | Inscription{% endblock %}
+
+{% block body %}
+    <h2>Profile de {{ app.user.nickname }}</h2>
+    <ul>
+        <li>Prénom : {{ app.user.firstname }}</li>
+        <li>Nom : {{ app.user.lastname | upper}}</li>
+        <li>Téléphone : {{ app.user.phoneNumber }}</li>
+        <li>Email : {{ app.user.email}}</li>
+        <li>Campus : {{ app.user.campus.name }}</li>
+    </ul>
+    <a href="{{ path('user_update', {'id': app.user.id}) }}">Modifier</a>
+{% endblock %}

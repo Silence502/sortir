@@ -7,34 +7,46 @@ use App\Entity\Trip;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Date;
 
 class TripType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class, [
-                'label' => 'Nom de la sortie'
+            ->add('name', TextType::class, [
+                'label' => 'Nom de la sortie '
             ])
             ->add('dateStartTime', DateTimeType::class, [
-                'label' => 'Date et heure de début',
+                'label' => 'Date et heure de début ',
                 'html5' => true,
             ])
             ->add('duration', TimeType::class, [
+                'label' => 'Durée ',
                 'input'  => 'datetime',
                 'widget' => 'choice',
             ])
-            ->add('registrationDeadline')
-            ->add('maxRegistrations')
-            ->add('tripInfos')
+            ->add('registrationDeadline', DateTimeType::class, [
+                'label' => 'Date limite d\'inscription ',
+                'html5' => true,
+            ])
+            ->add('maxRegistrations', IntegerType::class, [
+                'label' => 'Nombre de places :'
+            ])
+            ->add('tripInfos', TextareaType::class, [
+                'label' => 'Description et infos '
+            ])
             ->add('place', EntityType::class, [
-                'label' => 'Lieu',
+                'label' => 'Lieu ',
                 'class' => Place::class,
-                'choice_label' => 'nom'
+                'choice_label' => 'name'
             ])
         ;
     }

@@ -1,0 +1,12 @@
+<nav>
+    {% if app.user %}
+        <ul>
+            <li><a href="{{ path('main_index') }}">Accueil</a></li>
+            <li><a href="#">Villes</a></li>
+            <li><a href="#">Campus</a></li>
+            <li><a href="{{ path('user_profile', {'id': app.user.id}) }}">Mon profil</a></li>
+            <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+        </ul>
+    {% endif %}
+    <hr>
+</nav>
