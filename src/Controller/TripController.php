@@ -10,39 +10,40 @@ use App\Repository\StateRepository;
 use App\Repository\TripRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 /**
  * @Route("/sortie", name="sortie_")
  */
 class TripController extends AbstractController
 {
-    /**
-     * @Route("", name="liste")
-     */
-    public function list(
-        TripRepository $tripRepository,
-        UserRepository $userRepository,
-        Request $request
-    ): Response
-    {
-        $user = $userRepository->getCurrentUser(
-            $this->getUser()->getUserIdentifier()
-        );
-        $data = new SearchTripData();
-        $searchTripForm = $this->createForm(SearchTripForm::class, $data);
-        $searchTripForm->handleRequest($request);
+//    /**
+//     * @Route("/", name="liste")
+//     */
+//    public function list(
+//        TripRepository $tripRepository,
+//        Request $request
+//    ): Response
+//    {
+//        $user = $userRepository->getCurrentUser(
+//            $this->getUser()->getUserIdentifier()
+//        );
+//        $data = new SearchTripData();
+//        $searchTripForm = $this->createForm(SearchTripForm::class, $data);
+//        $searchTripForm->handleRequest($request);
 
-        $trips = $tripRepository->findSearch($data, $user);
+//        $trips = $tripRepository->findSearch($data, $user);
 
-        return $this->render('trip/list.html.twig', [
-            'trips' => $trips,
-            'user' => $user,
-            'searchForm' => $searchTripForm->createView()
-        ]);
-    }
+//        return $this->render('trip/list.html.twig', [
+//            'trips' => $trips,
+//            'user' => $user,
+//            'searchForm' => $searchTripForm->createView()
+//        ]);
+//    }
 
     /**
      * @Route("/details/{id}", name="details")
@@ -164,7 +165,7 @@ class TripController extends AbstractController
         TripRepository $tripRepository,
         UserRepository $userRepository,
         EntityManagerInterface $entityManager
-    ) : Response
+    ): Response
     {
         $trip = $tripRepository->find($id);
         $user = $userRepository
@@ -189,7 +190,7 @@ class TripController extends AbstractController
         TripRepository $tripRepository,
         UserRepository $userRepository,
         EntityManagerInterface $entityManager
-    ) : Response
+    ): Response
     {
         $trip = $tripRepository->find($id);
         $user = $userRepository

@@ -17,7 +17,7 @@
             </tr>
             <tr>
                 <td>Date et heure de la sortie:</td>
-                <td>{{ trip.dateStartTime|date('d/m/Y h:i') }}</td>
+                <td>{{ trip.dateStartTime|date('d/m/Y H:i') }}</td>
                 <td>Lieu</td>
                 <td>{{ trip.place.name }}</td>
             </tr>
@@ -49,5 +49,3 @@
 
     </section>
 {% endblock %}
-
-
