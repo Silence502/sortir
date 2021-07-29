@@ -6,7 +6,6 @@ use App\Data\SearchTripData;
 use App\Form\SearchTripForm;
 use App\Repository\TripRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
