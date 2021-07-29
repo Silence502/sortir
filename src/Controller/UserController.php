@@ -33,6 +33,7 @@ class UserController extends AbstractController
      * @param Request $request
      * @param EntityManagerInterface $entityManager
      * @param UserRepository $userRepository
+     * @param UserPasswordHasherInterface $passwordEncoder
      * @param $id
      * @return Response
      * @throws NonUniqueResultException

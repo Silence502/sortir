@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Liste villes{% endblock %}
+
+{% block body %}
+    <h2>Gérer les villes</h2>
+
+    <div>
+        {{ form_start(searchForm) }}
+
+        {{ form_row(searchForm.city) }}
+        <button type="submit">Rechercher</button>
+
+        {{ form_end(searchForm) }}
+    </div>
+
+    <table>
+        <tr>
+            <th>Ville</th>
+            <th>Code postal</th>
+            <th>Actions</th>
+        </tr>
+        {% if testUpdate == false %}
+            {% for city in cityList %}
+                <tr>
+                    <td>{{ city.name }}</td>
+                    <td>{{ city.zipCode }}</td>
+                    <td><a href="{{ path('city_update', {'id': city.id}) }}">
+                            <button>Modifier</button>
+                        </a> - <a
+                                href="{{ path('city_delete', {'id' : city.id}) }}">
+                            <button>Supprimer</button>
+                        </a></td>
+                </tr>
+            {% endfor %}
+        {% else %}
+
+            {{ form_start(cityListTypeUpdate) }}
+            <tr>
+                <td>{{ form_row(cityListTypeUpdate.name, {'value' : currentCity.name}) }}</td>
+                <td>{{ form_row(cityListTypeUpdate.zipCode, {'value' : currentCity.zipCode}) }}</td>
+                <td>
+                    <button type="submit">Valider</button>
+                </td>
+            </tr>
+            {{ form_end(cityListTypeUpdate) }}
+        {% endif %}
+
+        {{ form_start(cityListType) }}
+        <tr>
+            <td>{{ form_row(cityListType.name) }}</td>
+            <td>{{ form_row(cityListType.zipCode) }}</td>
+            <td>
+                <button type="submit">Ajouter</button>
+            </td>
+        </tr>
+        {{ form_end(cityListType) }}
+
+    </table>
+{% endblock %}
