@@ -41,7 +41,7 @@ class CityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($city);
-            $entityManager->flush();
+            $entityManager->flush()
 
             return $this->redirectToRoute('city_list');
         }
