@@ -6,7 +6,6 @@ use App\Data\SearchTripData;
 use App\Form\SearchTripForm;
 use App\Repository\TripRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,27 +22,27 @@ class MainController extends AbstractController
                           AuthenticationUtils $authenticationUtils,
                           Request $request): Response
     {
-//        $user = $userRepository->getCurrentUser(
-//            $this->getUser()->getUserIdentifier()
-//        );
 
         $error = $authenticationUtils->getLastAuthenticationError();
-        $lastUsername = $authenticationUtils->getLastUsername();
         if ($this->getUser() == null) {
 //            throw $this->createNotFoundException();
             return $this->redirectToRoute('app_login', [
                 'error' => $error]);
         }
+
+        $user = $userRepository->getCurrentUser(
+            $this->getUser()->getUserIdentifier()
+        );
+
         $data = new SearchTripData();
         $searchTripForm = $this->createForm(SearchTripForm::class, $data);
         $searchTripForm->handleRequest($request);
 
-//        $trips = $tripRepository->findSearch($data, $user);
-        $trips = $tripRepository->findAll();
+        $trips = $tripRepository->findSearch($data, $user);
 
         return $this->render('main/index.html.twig', [
             'trips' => $trips,
-//            'user' => $user,
+            'user' => $user,
             'searchForm' => $searchTripForm->createView()
         ]);
     }

@@ -31,8 +31,7 @@ class ProfileModifierType extends AbstractType
             ])
             ->add('phoneNumber', TextType::class, [
                 'label' => 'Téléphone ',
-                'required' => false,
-                'empty_data' => 'COUCOU'
+                'required' => false
             ])
 //            ->add('isActive')
 //            ->add('tripsRegistered')
