@@ -6,6 +6,7 @@ use App\Repository\TripRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TripRepository::class)
@@ -20,26 +21,39 @@ class Trip
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Nom  obligatoire")
      * @ORM\Column(type="string", length=50)
      */
     private $name;
 
     /**
+     * @Assert\NotBlank(message="Date de début obligatoire")
+     * @Assert\GreaterThanOrEqual(
+     *     value="today",
+     *     message="La date de début doit être supérieur à aujourd'hui")
      * @ORM\Column(type="datetime")
      */
     private $dateStartTime;
 
     /**
+     * @Assert\NotBlank(message="Durée de la sortie obligatoire")
      * @ORM\Column(type="time")
      */
     private $duration;
 
     /**
+     * @Assert\LessThanOrEqual(
+     *     propertyPath="dateStartTime",
+     *     message="La date limite d'inscription doit être inférieur à la date de début")
      * @ORM\Column(type="date")
      */
     private $registrationDeadline;
 
     /**
+     * @Assert\NotBlank(message="Nombre de places obligatoire")
+     * @Assert\GreaterThan(
+     *     value="0",
+     *     message="Doit être supérieur à 0")
      * @ORM\Column(type="integer")
      */
     private $maxRegistrations;
@@ -247,5 +261,9 @@ class Trip
         $this->isPublished = $isPublished;
 
         return $this;
+    }
+
+    public function getCurrentDate(){
+        return new \DateTime();
     }
 }
