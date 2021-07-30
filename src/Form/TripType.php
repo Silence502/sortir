@@ -28,7 +28,6 @@ class TripType extends AbstractType
             ->add('dateStartTime', DateTimeType::class, [
                 'label' => 'Date et heure de début ',
                 'html5' => true,
-                'widget' => 'single_text'
             ])
             ->add('duration', TimeType::class, [
                 'label' => 'Durée ',
