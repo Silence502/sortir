@@ -20,8 +20,7 @@ class CityRepository extends ServiceEntityRepository
         parent::__construct($registry, City::class);
     }
 
-    public function findSearch(SearchCityData $cityData,
-                               City $city): array
+    public function findSearch(SearchCityData $cityData): array
     {
         $query = $this->createQueryBuilder('city');
         if (!empty($cityData->city)){

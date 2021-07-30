@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Modification campus{% endblock %}
+
+{% block body %}
+    <h2>Modification de la ville de {{ currentSite.name }}</h2>
+
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Actions</th>
+        </tr>
+        {{ form_start(siteListTypeUpdate) }}
+        <tr>
+            <td>{{ form_row(siteListTypeUpdate.name, {'value' : currentSite.name}) }}</td>
+            <td>
+                <button type="submit">Valider</button>
+                -
+                <a href="{{ path('site_list') }}">
+                    <button>Annuler</button>
+                </a>
+            </td>
+        </tr>
+        {{ form_end(siteListTypeUpdate) }}
+    </table>
+{% endblock %}

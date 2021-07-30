@@ -2,7 +2,10 @@
 
 namespace App\Repository;
 
+use App\Data\SearchCityData;
+use App\Data\SearchSiteData;
 use App\Entity\Campus;
+use App\Entity\City;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -47,4 +50,15 @@ class CampusRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findSearch(SearchSiteData $siteData, Campus $site): array
+    {
+        $query = $this->createQueryBuilder('site');
+        if (!empty($siteData->site)){
+            $query
+                ->andWhere('site.name LIKE :name')
+                ->setParameter('name', "%{$siteData->site}%");
+        }
+
+        return $query->getQuery()->getResult();
+    }
 }

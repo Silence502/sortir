@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Les campus{% endblock %}
+
+{% block body %}
+    <h2>Gérer les site</h2>
+
+    <div>
+        {{ form_start(searchForm) }}
+
+        {{ form_row(searchForm.site) }}
+        <button type="submit">Rechercher</button>
+
+        {{ form_end(searchForm) }}
+    </div>
+
+    <table>
+        <tr>
+            <th>Campus</th>
+            <th>Actions</th>
+        </tr>
+        {% for site in siteList %}
+            <tr>
+                <td>{{ site.name }}</td>
+                <td><a href="{{ path('site_update', {'id': site.id}) }}">
+                        <button>Modifier</button>
+                    </a> - <a
+                            href="{{ path('site_delete', {'id' : site.id}) }}">
+                        <button>Supprimer</button>
+                    </a></td>
+            </tr>
+        {% endfor %}
+
+        {{ form_start(siteListType) }}
+        <tr>
+            <td>{{ form_row(siteListType.name) }}</td>
+            <td>
+                <button type="submit">Ajouter</button>
+            </td>
+        </tr>
+        {{ form_end(siteListType) }}
+
+    </table>
+{% endblock %}

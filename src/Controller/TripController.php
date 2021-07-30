@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Data\SearchTripData;
 use App\Entity\Trip;
+use App\Entity\User;
 use App\Form\SearchTripForm;
 use App\Form\TripType;
 use App\Repository\StateRepository;
@@ -55,9 +56,11 @@ class TripController extends AbstractController
     ): Response
     {
         $trip = $tripRepository->find($id);
+        $user = new User();
 
         return $this->render('trip/details.html.twig', [
             "trip" => $trip,
+            'user' => $user
         ]);
     }
 
@@ -72,6 +75,7 @@ class TripController extends AbstractController
     ): Response
     {
         $trip = new Trip();
+        $trip->setDateStartTime(new \DateTime('now'));
         $tripForm = $this->createForm(TripType::class, $trip);
 
         $tripForm->handleRequest($request);
@@ -98,9 +102,11 @@ class TripController extends AbstractController
             $this->addFlash('success', 'Sortie créée');
             return $this->redirectToRoute('main_index');
         }
+        $localDate = new \DateTime();
 
         return $this->render('trip/create.html.twig', [
-            'tripForm' => $tripForm->createView()
+            'tripForm' => $tripForm->createView(),
+            'localDate' => $localDate
         ]);
     }
 
@@ -157,7 +163,7 @@ class TripController extends AbstractController
             return $this->redirectToRoute('main_index');
         }
 
-        return $this->render('trip/create.html.twig', [
+        return $this->render('trip/modify.html.twig', [
             'trip' => $trip,
             'tripForm' => $tripForm->createView()
         ]);
