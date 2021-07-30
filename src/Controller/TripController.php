@@ -9,6 +9,7 @@ use App\Form\TripType;
 use App\Repository\StateRepository;
 use App\Repository\TripRepository;
 use App\Repository\UserRepository;
+use App\Services\TripHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -112,7 +113,8 @@ class TripController extends AbstractController
         TripRepository $tripRepository,
         UserRepository $userRepository,
         StateRepository $stateRepository,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        TripHandler $tripHandler
     ): Response
     {
         $trip = $tripRepository->find($id);
@@ -121,10 +123,16 @@ class TripController extends AbstractController
 
         $tripForm->handleRequest($request);
 
+        if ($tripForm->get('supprimer_la_sortie')->isClicked()) {
+            $entityManager->remove($trip);
+            $entityManager->flush();
+            $this->addFlash('success', 'Sortie supprimée');
+            return $this->redirectToRoute('main_index');
+        }
+
         if ($tripForm->isSubmitted() && $tripForm->isValid()) {
             $organizer = $userRepository->find($this->getUser());
 
-            $trip->setState($stateRepository->find(1));
 
             $trip->setOrganizer($this->getUser());
             $trip->setCampusOrganizer($organizer->getCampus());
@@ -135,14 +143,12 @@ class TripController extends AbstractController
 
             if ($tripForm->get('publier_la_sortie')->isClicked()) {
                 $trip->setIsPublished(true);
+//                $trip = $tripHandler->publish($trip);
             }
 
-            if ($tripForm->get('supprimer_la_sortie')->isClicked()) {
-                $entityManager->remove($trip);
-                $entityManager->flush();
-                $this->addFlash('success', 'Sortie supprimée');
-                return $this->redirectToRoute('main_index');
-            }
+            $trip->setState(
+                $stateRepository->find($tripHandler->setTripState($trip))
+            );
 
             $entityManager->persist($trip);
             $entityManager->flush();
@@ -156,6 +162,27 @@ class TripController extends AbstractController
             'tripForm' => $tripForm->createView()
         ]);
     }
+
+    /**
+     * @Route("/publier/{id}", name="publier"
+     */
+    /*
+    public function publish(
+        Request $request,
+        int $id,
+        TripRepository $tripRepository,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        $trip = $tripRepository->find($id);
+        $trip->setIsPublished(true);
+
+        $entityManager->persist($trip);
+        $entityManager->flush();
+
+        $this->redirectToRoute('sortie_details', ['id' => $trip->getId()]);
+    }
+    */
 
     /**
      * @Route("/seDesister/{id}", name="seDesister")
@@ -178,7 +205,7 @@ class TripController extends AbstractController
 
         $this->addFlash('success', $flashMessage);
 
-        return $this->redirectToRoute('sortie_liste');
+        return $this->redirectToRoute('main_index');
 
     }
 
@@ -202,7 +229,7 @@ class TripController extends AbstractController
         $flashMessage = 'Inscription à la sortie ' . $trip->getName();
 
         $this->addFlash('success', $flashMessage);
-        return $this->redirectToRoute('sortie_liste');
+        return $this->redirectToRoute('main_index');
 
     }
 }

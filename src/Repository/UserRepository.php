@@ -53,22 +53,22 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getOneOrNullResult();
     }
 
-//    /**
-//     * @throws NonUniqueResultException
-//     */
-//    public function getCurrentUser(string $usernameOrEmail): ?User
-//    {
-//        $entityManager = $this->getEntityManager();
-//
-//        return $entityManager->createQuery(
-//            'SELECT u
-//                FROM App\Entity\User u
-//                WHERE u.nickname = :query
-//                OR u.email = :query'
-//        )
-//            ->setParameter('query', $usernameOrEmail)
-//            ->getOneOrNullResult();
-//    }
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function getCurrentUser(string $usernameOrEmail): ?User
+    {
+        $entityManager = $this->getEntityManager();
+
+        return $entityManager->createQuery(
+            'SELECT u
+                FROM App\Entity\User u
+                WHERE u.nickname = :query
+                OR u.email = :query'
+        )
+            ->setParameter('query', $usernameOrEmail)
+            ->getOneOrNullResult();
+    }
 
     // /**
     //  * @return User[] Returns an array of User objects

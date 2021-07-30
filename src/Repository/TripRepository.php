@@ -55,6 +55,24 @@ class TripRepository extends ServiceEntityRepository
                 ->setParameter('user', "{$user->getId()}");
         }
 
+        if ($searchData->isRegistered) {
+            $query = $query
+                ->andWhere(':user MEMBER OF trip.usersRegistered')
+                ->setParameter('user', "{$user->getId()}");
+        }
+
+        if ($searchData->isNotRegistered) {
+            $query = $query
+                ->andWhere(':user NOT MEMBER OF trip.usersRegistered')
+                ->setParameter('user', "{$user->getId()}");
+        }
+
+        if ($searchData->tripPassed) {
+            $query = $query
+                ->andWhere('trip.dateStartTime < :today ')
+                ->setParameter('today', new \DateTime());
+        }
+
         //dd($query);
         return $query->getQuery()->getResult();
     }
