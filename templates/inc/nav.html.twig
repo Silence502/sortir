@@ -1,5 +1,7 @@
-<nav>
-    <a href="{{ path('main_index') }}"><img src="{{ asset('img/logo.svg') }}" alt="Sortir"></a>
+<div class="menu_container">
+    <a href="{{ path('main_index') }}"><img class="logo" src="{{ asset('img/logo_eni.png') }}" alt="Sortir"></a>
+
+    <nav>
 
     {% if app.user %}
 
@@ -8,12 +10,10 @@
             <li><a href="{{ path('city_list') }}">Villes</a></li>
             <li><a href="#">Campus</a></li>
             <li><a href="{{ path('user_profile', {'id': app.user.id}) }}">Mon profil</a></li>
+            <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
 
         </ul>
-
-        <div class="deconnecter">
-        <a href="{{ path('app_logout') }}">Se déconnecter</a>
-        </div>
     {% endif %}
 </nav>
+</div>
 
