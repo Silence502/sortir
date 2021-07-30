@@ -29,8 +29,6 @@ class CityController extends AbstractController
     {
         $city = new City();
 
-        $testUpdate = false;
-
         $data = new SearchCityData();
         $searchForm = $this->createForm(SearchCityFormType::class, $data);
         $searchForm->handleRequest($request);
@@ -51,8 +49,7 @@ class CityController extends AbstractController
         return $this->render('city/list.html.twig', [
             'cityListType' => $form->createView(),
             'cityList' => $cityList,
-            'testUpdate' => $testUpdate,
-            'searchForm' => $searchForm->createView(),
+            'searchForm' => $searchForm->createView()
         ]);
     }
 
@@ -79,8 +76,6 @@ class CityController extends AbstractController
                            CityRepository $cityRepository,
                            EntityManagerInterface $entityManager): Response{
 
-        $testUpdate = true;
-
         $currentCity = $cityRepository->find($id);
         if (!$currentCity){
             throw $this->createNotFoundException();
@@ -99,8 +94,7 @@ class CityController extends AbstractController
 
         return $this->render('city/update.html.twig', [
             'cityListTypeUpdate' => $form->createView(),
-            'currentCity' => $currentCity,
-            'testUpdate' => $testUpdate,
+            'currentCity' => $currentCity
         ]);
     }
 }
