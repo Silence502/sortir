@@ -38,7 +38,7 @@ class MainController extends AbstractController
 
         $trips = $tripRepository->findSearch($data, $user);
 
-        return $this->render('main/index.html.twig', [
+        return $this->render('main/index.html.twig',[
             'trips' => $trips,
             'user' => $user,
             'searchForm' => $searchTripForm->createView()
