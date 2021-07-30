@@ -22,10 +22,8 @@ class MainController extends AbstractController
                           AuthenticationUtils $authenticationUtils,
                           Request $request): Response
     {
-
         $error = $authenticationUtils->getLastAuthenticationError();
         if ($this->getUser() == null) {
-//            throw $this->createNotFoundException();
             return $this->redirectToRoute('app_login', [
                 'error' => $error]);
         }

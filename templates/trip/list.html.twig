@@ -43,30 +43,62 @@
                     </td>
                     <td>{{ trip.organizer.firstname }} {{ trip.organizer.lastname | first }}.</td>
                     <td>
-                        <a href="{{ path('sortie_details', {'id': trip.id}) }}"
-                           title="Sortie: {{ trip.name }}">
-                            Afficher
-                        </a>
-                        <span> - </span>
-                        {# Inscription ou désinscription #}
-                        {% set peutInscrire = true %}
-                        {% for userRegistered in trip.usersRegistered %}
-                            {% if userRegistered.id == user.id %}
-                                {% set peutInscrire = false %}
-                            {% endif %}
-                        {% endfor %}
-                        {% if peutInscrire %}
-                            <a href="{{ path('sortie_sInscrire',{id: trip.id}) }}" title="S'inscrire">
-                                S'inscrire
+
+                        {# DEBUT DE LA COLONNE ACTIONS #}
+
+                        {% if trip.organizer.id == user.id and trip.state.id == 1  %}
+                            <a href="{{ path('sortie_modifier', {'id': trip.id }) }}" title="Modifier la sortie">
+                                Modifier
                             </a>
                         {% else %}
-                            <a href="{{ path('sortie_seDesister',{id: trip.id}) }}" title="Se désister">
-                                Se désister
+                            <a href="{{ path('sortie_details', {'id': trip.id}) }}"
+                               title="Sortie: {{ trip.name }}">
+                                Afficher
                             </a>
                         {% endif %}
+
+                        {% if date(trip.dateStartTime) > date() %}
+
+                            <span> - </span>
+
+                            {% if trip.organizer.id == user.id %}
+
+                                {% if trip.state.id == 1 %}
+                                    <a href="#" title="Publier la sortie">
+                                        Publier
+                                    </a>
+                                {% elseif trip.state.id == 2 %}
+                                    <a href="#" title="Annuler la sortie">
+                                        Annuler
+                                    </a>
+                                {% endif %}
+
+                            {% else %}
+
+                                {% if trip.registrationDeadline > "now" %}
+                                    {# Inscription ou désinscription #}
+                                    {% set canRegister = true %}
+                                    {% for userRegistered in trip.usersRegistered %}
+                                        {% if userRegistered.id == user.id %}
+                                            {% set canRegister = false %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if canRegister %}
+                                        <a href="{{ path('sortie_sInscrire',{id: trip.id}) }}" title="S'inscrire">
+                                            S'inscrire
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ path('sortie_seDesister',{id: trip.id}) }}" title="Se désister">
+                                            Se désister
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+
+                        {% endif %}
+
                     </td>
                 </tr>
-
             {% endfor %}
         </table>
     {% else %}

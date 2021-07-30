@@ -10,7 +10,7 @@
         Créer <span class="titre_second">une sortie</span>
     </h3>
 
-    {{ form_start(tripForm) }}
+    {{ form_start(tripForm, {attr: {'novalidate': 'novalidate'}}) }}
 
     {{ form_row(tripForm.name) }}
     {{ form_row(tripForm.dateStartTime) }}
@@ -24,6 +24,7 @@
     {{ form_row(tripForm.enregistrer, {'attr': {'class': "btn"}}) }}
     {{ form_row(tripForm.publier_la_sortie, {'attr': {'class': "btn"}}) }}
     {{ form_row(tripForm.supprimer_la_sortie, {'attr': {'style': 'display: none'}}) }}
+
 
     {{ form_end(tripForm) }}
 {#    <a href="{{ path('sortie_liste') }}" title="Annuler la création de sortie">#}
