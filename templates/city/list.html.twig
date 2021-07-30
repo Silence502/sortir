@@ -20,7 +20,6 @@
             <th>Code postal</th>
             <th>Actions</th>
         </tr>
-        {% if testUpdate == false %}
             {% for city in cityList %}
                 <tr>
                     <td>{{ city.name }}</td>
@@ -33,18 +32,6 @@
                         </a></td>
                 </tr>
             {% endfor %}
-        {% else %}
-
-            {{ form_start(cityListTypeUpdate) }}
-            <tr>
-                <td>{{ form_row(cityListTypeUpdate.name, {'value' : currentCity.name}) }}</td>
-                <td>{{ form_row(cityListTypeUpdate.zipCode, {'value' : currentCity.zipCode}) }}</td>
-                <td>
-                    <button type="submit">Valider</button>
-                </td>
-            </tr>
-            {{ form_end(cityListTypeUpdate) }}
-        {% endif %}
 
         {{ form_start(cityListType) }}
         <tr>
