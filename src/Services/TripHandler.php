@@ -18,30 +18,35 @@ class TripHandler
     ): int
     {
         $stateId = 0;
-        $dateFormat = 'd-m-Y';
-        $today = new \DateTime();
 
+        $today = new \DateTime();
+        $intervalStartDate = $today->diff($trip->getDateStartTime());
+        $intervalRegistrationDeadline = $today->diff($trip->getRegistrationDeadline());
 
         if ($trip->getIsPublished()) {
 
             // stateId = Ouverte
-            if ($trip->getDateStartTime() < $today
-                && $trip->getRegistrationDeadline() < $today) {
+            if ($intervalStartDate->invert == 0
+                && $intervalRegistrationDeadline->invert == 0) {
                 $stateId = 2;
                 // stateId = Cloturée
-            } elseif ($trip->getDateStartTime() < $today
-                && $trip->getRegistrationDeadline() > $today) {
+            } elseif ($intervalStartDate->invert == 0
+                && $intervalRegistrationDeadline->invert == 1) {
                 $stateId = 3;
                 //stateId = En cours
+                //TODO state En cours
             } elseif ($trip->getDateStartTime() == $today) {
                 $stateId = 4;
                 // stateId = Passée
-            } elseif ($trip->getDateStartTime() > $today) {
+            } elseif ($intervalStartDate == 1) {
                 $stateId = 5;
             }
 
-            dd($trip->getDateStartTime()->format('d-m-Y') == $today->format('d-m-Y'));
-            
+//            dd($interval = $today->diff($trip->getDateStartTime()));
+//            dd($interval = $trip->getDateStartTime()->diff($today));
+//            dd($intervalRegistrationDeadline);
+//            dd($stateId);
+
             // stateId = Créée
         } else {
             $stateId = 1;

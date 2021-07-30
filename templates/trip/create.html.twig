@@ -1,12 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Créer une sortie | {{ parent() }}
+    {{ parent()}} | Créer une sortie
 {% endblock %}
 
 {% block body %}
 
-    <h2>Créer une sortie</h2>
+    <h3>
+        Créer <span class="titre_second">une sortie</span>
+    </h3>
 
     {{ form_start(tripForm, {attr: {'novalidate': 'novalidate'}}) }}
 
@@ -17,8 +19,10 @@
     {{ form_row(tripForm.maxRegistrations) }}
     {{ form_row(tripForm.tripInfos) }}
     {{ form_row(tripForm.place) }}
-    {{ form_row(tripForm.enregistrer) }}
-    {{ form_row(tripForm.publier_la_sortie) }}
+
+    <div class="btn_container">
+    {{ form_row(tripForm.enregistrer, {'attr': {'class': "btn"}}) }}
+    {{ form_row(tripForm.publier_la_sortie, {'attr': {'class': "btn"}}) }}
     {{ form_row(tripForm.supprimer_la_sortie, {'attr': {'style': 'display: none'}}) }}
 
 
@@ -27,7 +31,8 @@
 {#        <button>Annuler</button>#}
 {#    </a>#}
     <form method="post" action="{{ path('main_index') }}">
-        <button type="submit">Annuler</button>
+        <button class="btn" type="submit">Annuler</button>
     </form>
+    </div>
 
 {% endblock %}
