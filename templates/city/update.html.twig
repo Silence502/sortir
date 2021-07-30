@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Modification ville{% endblock %}
+
+{% block body %}
+    <h2>Modification de la ville de {{ currentCity.name }}</h2>
+
+    <table>
+        <tr>
+            <th>Ville</th>
+            <th>Code postal</th>
+            <th>Actions</th>
+        </tr>
+        {{ form_start(cityListTypeUpdate) }}
+        <tr>
+            <td>{{ form_row(cityListTypeUpdate.name, {'value' : currentCity.name}) }}</td>
+            <td>{{ form_row(cityListTypeUpdate.zipCode, {'value' : currentCity.zipCode}) }}</td>
+            <td>
+                <button type="submit">Valider</button>
+                -
+                <a href="{{ path('city_list') }}">
+                    <button>Annuler</button>
+                </a>
+            </td>
+        </tr>
+        {{ form_end(cityListTypeUpdate) }}
+    </table>
+{% endblock %}

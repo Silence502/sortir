@@ -19,16 +19,15 @@
     {{ form_row(tripForm.place) }}
     {{ form_row(tripForm.enregistrer) }}
     {{ form_row(tripForm.publier_la_sortie) }}
-    {{ form_row(tripForm.supprimer_la_sortie) }}
+    {{ form_row(tripForm.supprimer_la_sortie, {'attr': {'style': 'display: none'}}) }}
+
 
     {{ form_end(tripForm) }}
-    {#
-    <a href="{{ path('sortie_liste') }}" title="Annuler la création de sortie">
-        <button>Annuler</button>
-    </a>
-    #}
+{#    <a href="{{ path('sortie_liste') }}" title="Annuler la création de sortie">#}
+{#        <button>Annuler</button>#}
+{#    </a>#}
     <form method="post" action="{{ path('main_index') }}">
         <button type="submit">Annuler</button>
     </form>
-    
+
 {% endblock %}
