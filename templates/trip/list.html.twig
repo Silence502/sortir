@@ -41,12 +41,19 @@
                             {% endif %}
                         {% endfor %}
                     </td>
-                    <td>{{ trip.organizer.firstname }} {{ trip.organizer.lastname | first }}.</td>
+                    {% if trip.organizer.id == app.user.id %}
                     <td>
-
+                        <a href="{{ path('user_profile', {'id' : app.user.id}) }}">{{ trip.organizer.firstname }} {{ trip.organizer.lastname | first }}
+                            .</a></td>
+                    {% else %}
+                    <td>
+                        <a href="{{ path('user_show', {'id' : trip.organizer.id}) }}">{{ trip.organizer.firstname }} {{ trip.organizer.lastname | first }}
+                            .</a></td>
+                    <td>
+                        {% endif %}
                         {# DEBUT DE LA COLONNE ACTIONS #}
 
-                        {% if trip.organizer.id == user.id and trip.state.id == 1  %}
+                        {% if trip.organizer.id == user.id and trip.state.id == 1 %}
                             <a href="{{ path('sortie_modifier', {'id': trip.id }) }}" title="Modifier la sortie">
                                 Modifier
                             </a>

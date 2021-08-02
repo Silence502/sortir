@@ -8,11 +8,13 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\ORMException;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * Class UserController
@@ -43,6 +45,7 @@ class UserController extends AbstractController
                                   EntityManagerInterface $entityManager,
                                   UserRepository $userRepository,
                                   UserPasswordHasherInterface $passwordEncoder,
+                                  SluggerInterface $slugger,
                                   $id): Response
     {
         //Getting the current user
@@ -56,6 +59,22 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+            $currentUserImg = $form->get('img')->getData();
+            if ($currentUserImg) {
+                $originalImg = pathinfo($currentUserImg->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeImg = $slugger->slug($originalImg);
+                $newImg = $safeImg.'-'.uniqid().'-'.$currentUserImg->guessExtension();
+
+                try {
+                    $currentUserImg->move(
+                        $this->getParameter('img_directory'),
+                        $newImg
+                    );
+                } catch (FileException $e) {
+                    $e->getMessage();
+                }
+                $currentUser->setImg($newImg);
+            }
             $currentUser->setNickname($form->get('nickname')->getData());
             $currentUser->setFirstname($form->get('firstname')->getData());
             $currentUser->setLastname($form->get('lastname')->getData());
@@ -71,6 +90,26 @@ class UserController extends AbstractController
         return $this->render('user/profile_update.html.twig', [
             'profileModifierType' => $form->createView(),
             'currentUser' => $currentUser
+        ]);
+    }
+
+    /**
+     * @param UserRepository $userRepository
+     * @param $id
+     * @return Response
+     * @throws NonUniqueResultException
+     * @Route("/show/{id}", name="show")
+     */
+    public function profileShow(UserRepository $userRepository,
+                                $id): Response
+    {
+        $user = $userRepository->findById($id);
+        if (!$user) {
+            throw $this->createNotFoundException();
+        }
+
+        return $this->render('user/profile_show.html.twig', [
+            'user' => $user
         ]);
     }
 }

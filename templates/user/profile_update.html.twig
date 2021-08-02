@@ -4,20 +4,23 @@
 
 {% block body %}
     <h2>Modification de {{ currentUser.nickname }}</h2>
+    {% if app.user.img %}
+        <img class="img-user" src="{{ asset('img_profile/' ~ currentUser.img) }}" alt="Image de profil">
+    {% endif %}
     {{ form_start(profileModifierType) }}
 
     {{ form_row(profileModifierType.nickname, {'value' : currentUser.nickname}) }}
     {{ form_row(profileModifierType.firstname, {'value' : currentUser.firstname}) }}
     {{ form_row(profileModifierType.lastname, {'value' : currentUser.lastname}) }}
     {{ form_row(profileModifierType.phoneNumber, {'value' : currentUser.phoneNumber}) }}
-{#    {{ form_row(profileModifierType.email, {'value' : currentUser.email}) }}#}
     {{ form_row(profileModifierType.plainPassword) }}
+    {{ form_row(profileModifierType.img) }}
     <button type="submit" class="btn">Valider</button>
 
     {{ form_end(profileModifierType) }}
 
-    <form method="post" action="{{ path('user_profile', {'id': app.user.id}) }}">
+    <a href="{{ path('user_profile', {'id': app.user.id}) }}">
         <button type="submit">Annuler</button>
-    </form>
+    </a>
 
 {% endblock %}
