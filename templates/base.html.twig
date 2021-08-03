@@ -15,27 +15,40 @@
     <link rel="icon" href="{{ asset('img/icone.png') }}">
 </head>
 <body>
+
+
 <header>
     {% include 'inc/nav.html.twig' %}
+
+    {% if app.user %}
+
+        {{ app.user.nickname }}
+
+    {% endif %}
 </header>
 
-
 <div class="container">
-<main>
-    {# read and display all flash messages #}
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="flash-{{ label }}">
-                {{ message }}
-            </div>
+    <main>
+        {# read and display all flash messages #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
 
-    {% block body %}{% endblock %}
-</main>
-
-<footer></footer>
+        {% block body %}{% endblock %}
+    </main>
+    <footer></footer>
+    {% if app.user %}
+        {% if app.user.isActive == 0 %}
+            <h2>Votre compte a été désactivé. Veuillez contacter un administrateur.</h2>
+        {% endif %}
+    {% endif %}
 
 </div>
+
+
 </body>
 </html>
