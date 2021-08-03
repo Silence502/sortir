@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -50,8 +51,10 @@ class ProfileModifierAdminType extends AbstractType
                 'required' => false
             ])
             ->add('isActive', CheckboxType::class, [
-                'label' => 'Activer/Désactiver profils '
-            ]);
+                'label' => 'Activer/Désactiver profils ',
+                'required' => false
+            ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

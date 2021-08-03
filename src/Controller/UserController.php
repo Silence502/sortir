@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ProfileModifierAdminType;
 use App\Form\ProfileModifierType;
+use App\Repository\TripRepository;
 use App\Repository\UserRepository;
 use App\Services\UploadImg;
 use Doctrine\ORM\EntityManagerInterface;
@@ -38,6 +39,7 @@ class UserController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @param UserRepository $userRepository
      * @param UserPasswordHasherInterface $passwordEncoder
+     * @param SluggerInterface $slugger
      * @param $id
      * @return Response
      * @throws NonUniqueResultException
@@ -120,15 +122,18 @@ class UserController extends AbstractController
      * @return Response
      * @Route("/admin/list/", name="admin_list")
      */
-    public function list(UserRepository $userRepository): Response
+    public function list(UserRepository $userRepository,
+                         TripRepository $tripRepository): Response
     {
         $user = $userRepository->findAll();
+        $trip = $tripRepository->findAll();
         if (!$user){
             throw $this->createNotFoundException();
         }
 
         return $this->render('user/list.html.twig', [
-            'users' => $user
+            'users' => $user,
+            'trips' => $trip
         ]);
     }
 
@@ -156,6 +161,8 @@ class UserController extends AbstractController
             throw $this->createNotFoundException();
         }
 
+        $testUpdate = true;
+
         //Building form
         $form = $this->createForm(ProfileModifierAdminType::class, new User());
         $form->handleRequest($request);
@@ -181,6 +188,7 @@ class UserController extends AbstractController
             $currentUser->setFirstname($form->get('firstname')->getData());
             $currentUser->setLastname($form->get('lastname')->getData());
             $currentUser->setPhoneNumber($form->get('phoneNumber')->getData());
+            $currentUser->setIsActive($form->get('isActive')->getData());
             $entityManager->flush();
 
             return $this->redirectToRoute('user_admin_list');
@@ -189,7 +197,8 @@ class UserController extends AbstractController
 
         return $this->render('user/profile_update_admin.html.twig', [
             'profileModifierAdminType' => $form->createView(),
-            'currentUser' => $currentUser
+            'currentUser' => $currentUser,
+            'testUpdate' => $testUpdate
         ]);
     }
 }
