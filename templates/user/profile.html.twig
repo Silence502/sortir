@@ -4,6 +4,9 @@
 
 {% block body %}
     <h2>Profile de {{ app.user.nickname }}</h2>
+    {% if app.user.img %}
+        <img class="img-user" src="{{ asset('img_profile/' ~ app.user.img) }}" alt="Image de profil">
+    {% endif %}
     <ul>
         <li>Prénom : {{ app.user.firstname }}</li>
         <li>Nom : {{ app.user.lastname | upper}}</li>
@@ -11,5 +14,5 @@
         <li>Email : {{ app.user.email}}</li>
         <li>Campus : {{ app.user.campus.name }}</li>
     </ul>
-    <a href="{{ path('user_update', {'id': app.user.id}) }}">Modifier</a>
+    <a href="{{ path('user_update', {'id': app.user.id}) }}"><button>Modifier</button></a>
 {% endblock %}

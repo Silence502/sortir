@@ -28,18 +28,18 @@ class TripType extends AbstractType
             ])
             ->add('dateStartTime', DateTimeType::class, [
                 'label' => 'Date et heure de début ',
-                'html5' => true,
-                'widget' => 'single_text',
+                'html5' => true
 
             ])
             ->add('duration', TimeType::class, [
                 'label' => 'Durée ',
-                'input'  => 'datetime',
+
+                'input'  => 'datetime'
             ])
             ->add('registrationDeadline', DateTimeType::class, [
                 'label' => 'Date limite d\'inscription ',
-                'html5' => true,
-                'widget' => 'single_text',
+                'html5' => true
+                'input'  => 'datetime',
             ])
             ->add('maxRegistrations', IntegerType::class, [
                 'label' => 'Nombre de places'

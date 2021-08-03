@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class SiteController
  * @package App\Controller
- * @Route("/site", name="site_")
+ * @Route("/admin/site", name="site_")
  */
 class SiteController extends AbstractController
 {

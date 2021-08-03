@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | {{ user.nickname }}{% endblock %}
+
+{% block body %}
+    <h2>Profile de {{ user.nickname }}</h2>
+    {% if app.user.img %}
+        <img class="img-user" src="{{ asset('img_profile/' ~ user.img) }}" alt="Image de profil">
+    {% endif %}
+    <ul>
+        <li>Prénom : {{ user.firstname }}</li>
+        <li>Nom : {{ user.lastname }}</li>
+        <li>Téléphone : {{ user.phoneNumber }}</li>
+        <li>Email : {{ user.email }}</li>
+        <li>Campus ; {{ user.campus.name }}</li>
+    </ul>
+    <a href="{{ path('main_index') }}"><button>Retour</button></a>
+{% endblock %}

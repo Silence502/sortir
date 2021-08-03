@@ -140,3 +140,8 @@ nav li {
 .titre_second {
     color: #8DA850;
 }
+
+.img-user {
+    width: 100px;
+    height: 100px;
+}
