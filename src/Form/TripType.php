@@ -27,17 +27,23 @@ class TripType extends AbstractType
             ])
             ->add('dateStartTime', DateTimeType::class, [
                 'label' => 'Date et heure de début ',
-                'html5' => true
-
+                'widget' => "single_text",
+                'html5' => false,
+                'format' => 'dd-MM-yyyy à HH:mm'
             ])
             ->add('duration', TimeType::class, [
                 'label' => 'Durée ',
-                'input'  => 'datetime'
+                'input'  => 'datetime',
+                'widget' => "single_text",
             ])
             ->add('registrationDeadline', DateTimeType::class, [
                 'label' => 'Date limite d\'inscription ',
-                'html5' => true
-
+                'widget' => "single_text",
+                'html5' => false,
+                'format' => 'dd-MM-yyyy',
+                'attr' => [
+                    'placeholder' => 'jj-mm-aaaa',
+                ],
             ])
             ->add('maxRegistrations', IntegerType::class, [
                 'label' => 'Nombre de places'
@@ -50,9 +56,21 @@ class TripType extends AbstractType
                 'class' => Place::class,
                 'choice_label' => 'name'
             ])
-            ->add('enregistrer', SubmitType::class)
-            ->add('publier_la_sortie', SubmitType::class)
-            ->add('supprimer_la_sortie', SubmitType::class)
+            ->add('enregistrer', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn'
+                ],
+            ])
+            ->add('publier_la_sortie', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn'
+                ],
+            ])
+            ->add('supprimer_la_sortie', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn'
+                ],
+            ])
         ;
     }
 

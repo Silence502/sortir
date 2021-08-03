@@ -3,13 +3,18 @@
 {% block title %}{{ parent()}} | Inscription{% endblock %}
 
 {% block body %}
-    <h2>Profile de {{ app.user.nickname }}</h2>
-    <ul>
+    <h3>Profil <span class="titre_second"> de {{ app.user.nickname }}</span></h3>
+
+    <ul class="li-format">
         <li>Prénom : {{ app.user.firstname }}</li>
         <li>Nom : {{ app.user.lastname | upper}}</li>
         <li>Téléphone : {{ app.user.phoneNumber }}</li>
         <li>Email : {{ app.user.email}}</li>
         <li>Campus : {{ app.user.campus.name }}</li>
     </ul>
-    <a href="{{ path('user_update', {'id': app.user.id}) }}">Modifier</a>
+
+    <form method="post" action="{{ path('user_update', {'id': app.user.id}) }}">
+        <button class = "btn btn-recherche" type="submit">Modifier</button>
+    </form>
+
 {% endblock %}

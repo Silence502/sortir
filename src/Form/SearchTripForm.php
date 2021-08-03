@@ -23,23 +23,24 @@ class SearchTripForm extends AbstractType
                 'choice_label' => 'name',
             ])
             ->add('q', TextType::class, [
-                'label' => 'Le nom de la recherche contient:',
+                'label' => 'Le nom de la recherche contient :',
                 'required' => false,
                 'attr' => [
-                    'placeholder' => 'search'
-                ]
+                    'placeholder' => 'rechercher',
+                    'class' => 'recherche'
+                ],
             ])
             ->add('dateBeginning', DateType::class, [
                 'label' => 'Entre',
                 'required' => false,
-                'format' => 'dd MM yyyy',
                 'empty_data' => '',
+                'widget' => "single_text",
             ])
             ->add('dateEnding', DateType::class, [
                 'label' => 'et',
                 'required' => false,
-                'format' => 'dd MM yyyy',
                 'empty_data' => '',
+                'widget' => "single_text",
             ])
             ->add('isOrganizer', CheckboxType::class, [
                 'label' => 'Sorties dont je suis l\'organisateur',
@@ -50,7 +51,7 @@ class SearchTripForm extends AbstractType
                 'required' => false,
             ])
             ->add('isNotRegistered', CheckboxType::class, [
-                'label' => 'Sorties dont je ne suis pas inscrit',
+                'label' => 'Sorties auxquelles je ne suis pas inscrit',
                 'required' => false,
             ])
             ->add('tripPassed', CheckboxType::class, [

@@ -27,7 +27,7 @@ class ProfileModifierType extends AbstractType
                 'label' => 'Prénom '
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'nom '
+                'label' => 'Nom '
             ])
             ->add('phoneNumber', TextType::class, [
                 'label' => 'Téléphone ',
