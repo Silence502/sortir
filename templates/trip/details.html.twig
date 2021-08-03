@@ -46,6 +46,20 @@
                 <td>{{ (trip.place.longitude)? trip.place.longitude : 'non renseignée' }}</td>
             </tr>
         </table>
+        <br><hr><br>
+        <table>
+            <thead><h3>Participants</h3></thead>
+            <tr>
+                <td>Pseudo</td>
+                <td>Nom</td>
+            </tr>
+            {% for user in trip.usersRegistered %}
+                <tr>
+                    <td>{{ user.nickname }}</td>
+                    <td>{{ user.firstname }} {{ user.lastname | upper }}</td>
+                </tr>
+            {% endfor %}
+        </table>
 
     </section>
 {% endblock %}
