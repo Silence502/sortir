@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Modification profil{% endblock %}
+
+{% block body %}
+    {% set ADMIN = 'ROLE_ADMIN' %}
+    <h2>Modification de {{ currentUser.nickname }}</h2>
+    {% if app.user.img %}
+        <img class="img-user" src="{{ asset('img_profile/' ~ currentUser.img) }}" alt="Image de profil">
+    {% endif %}
+    {{ form_start(profileModifierAdminType) }}
+
+    {{ form_row(profileModifierAdminType.nickname, {'value' : currentUser.nickname}) }}
+    {{ form_row(profileModifierAdminType.firstname, {'value' : currentUser.firstname}) }}
+    {{ form_row(profileModifierAdminType.lastname, {'value' : currentUser.lastname}) }}
+    {{ form_row(profileModifierAdminType.phoneNumber, {'value' : currentUser.phoneNumber}) }}
+    {{ form_row(profileModifierAdminType.isActive) }}
+    {{ form_row(profileModifierAdminType.img) }}
+    <button type="submit" class="btn">Valider</button>
+
+    {{ form_end(profileModifierAdminType) }}
+
+    <a href="{{ path('user_profile', {'id': app.user.id}) }}">
+        <button type="submit">Annuler</button>
+    </a>
+
+{% endblock %}

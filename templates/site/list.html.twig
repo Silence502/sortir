@@ -22,10 +22,10 @@
         {% for site in siteList %}
             <tr>
                 <td>{{ site.name }}</td>
-                <td><a href="{{ path('site_update', {'id': site.id}) }}">
+                <td><a href="{{ path('admin_site_update', {'id': site.id}) }}">
                         <button>Modifier</button>
                     </a> - <a
-                            href="{{ path('site_delete', {'id' : site.id}) }}">
+                            href="{{ path('admin_site_delete', {'id' : site.id}) }}">
                         <button>Supprimer</button>
                     </a></td>
             </tr>

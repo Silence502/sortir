@@ -17,6 +17,12 @@
 <body>
 <header>
     {% include 'inc/nav.html.twig' %}
+
+    {% if app.user %}
+
+        {{ app.user.nickname }}
+
+    {% endif %}
 </header>
 
 
