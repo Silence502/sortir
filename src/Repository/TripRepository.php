@@ -33,7 +33,7 @@ class TripRepository extends ServiceEntityRepository
         User $user
     ): array
     {
-        //dd($user);
+        //dd($searchData->dateBeginning);
         $query = $this
             ->createQueryBuilder('trip');
 
@@ -47,6 +47,14 @@ class TripRepository extends ServiceEntityRepository
             $query = $query
                 ->andWhere('trip.name LIKE :q')
                 ->setParameter('q', "%{$searchData->q}%");
+        }
+
+        if (!empty($searchData->dateBeginning) && !empty($searchData->dateEnding)) {
+            $query = $query
+                ->andWhere('trip.dateStartTime BETWEEN :dateBeginning AND :dateEnding')
+                ->setParameter('dateBeginning', "{$searchData->dateBeginning->format('Y-m-d')}")
+                ->setParameter('dateEnding', "{$searchData->dateEnding->format('Y-m-d')}")
+            ;
         }
 
         if ($searchData->isOrganizer) {
