@@ -221,6 +221,17 @@ th {
     background-color:#8DA850;
     width:auto;
 }
+
+.th-align-left {
+    text-align: left;
+}
+
+.th-align-left tr {
+    border-width:1px;
+    border-style:solid;
+    border-color:black;
+}
+
 td {
     font-size:80%;
     padding:5px;
