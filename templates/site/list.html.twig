@@ -3,13 +3,15 @@
 {% block title %}{{ parent() }} | Les campus{% endblock %}
 
 {% block body %}
-    <h2>Gérer les site</h2>
+    <h3>Gérer <span class="titre_second">les sites<span></h3>
 
     <div>
         {{ form_start(searchForm) }}
 
+     <div class="btn_container">
         {{ form_row(searchForm.site) }}
-        <button type="submit">Rechercher</button>
+        <button type="submit" class="btn">Rechercher</button>
+     </div>
 
         {{ form_end(searchForm) }}
     </div>

@@ -3,19 +3,23 @@
 {% block title %}{{ parent() }} | Modification profil{% endblock %}
 
 {% block body %}
-    <h2>Modification de {{ currentUser.nickname }}</h2>
+
+    <h3>Modification <span class="titre_second"> du profil de {{ currentUser.nickname }}</span></h3>
 
     {% if app.user.img %}
         <img class="img-user" src="{{ asset('img_profile/' ~ currentUser.img) }}" alt="Image de profil">
     {% endif %}
+
     {{ form_start(profileModifierType) }}
 
+    <div class="label-align">
     {{ form_row(profileModifierType.nickname, {'value' : currentUser.nickname}) }}
     {{ form_row(profileModifierType.firstname, {'value' : currentUser.firstname}) }}
     {{ form_row(profileModifierType.lastname, {'value' : currentUser.lastname}) }}
     {{ form_row(profileModifierType.phoneNumber, {'value' : currentUser.phoneNumber}) }}
     {{ form_row(profileModifierType.isActive) }}
     {{ form_row(profileModifierType.plainPassword) }}
+
     {{ form_row(profileModifierType.img) }}
     <button type="submit" class="btn">Valider</button>
 

@@ -16,7 +16,8 @@ class SearchCityFormType extends AbstractType
                 'label' => 'Le nom contient ',
                 'required' => false,
                 'attr' => [
-                    'placeholder' => 'recherche'
+                    'placeholder' => 'rechercher',
+                    'class' => 'recherche'
                 ]
             ])
         ;
