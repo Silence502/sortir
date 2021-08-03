@@ -69,8 +69,8 @@
             </tr>
             {% for user in trip.usersRegistered %}
                 <tr>
-                    <td>{{ user.nickname }}</td>
-                    <td>{{ user.firstname }} {{ user.lastname | upper }}</td>
+                    <td><a href="{{ path('user_show', {'id': user.id}) }}">{{ user.nickname }}</a></td>
+                    <td><a href="{{ path('user_show', {'id': user.id}) }}">{{ user.firstname }} {{ user.lastname | upper }}</a></td>
                 </tr>
             {% endfor %}
         </table>

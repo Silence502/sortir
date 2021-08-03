@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class SiteController
  * @package App\Controller
- * @Route("/site", name="site_")
+ * @Route("/admin/site", name="admin_site_")
  */
 class SiteController extends AbstractController
 {
@@ -39,7 +39,7 @@ class SiteController extends AbstractController
             $entityManager->persist($site);
             $entityManager->flush();
 
-            return $this->redirectToRoute('site_list');
+            return $this->redirectToRoute('admin_site_list');
         }
 
         $siteList = $campusRepository->findSearch($data, $site);
@@ -67,7 +67,7 @@ class SiteController extends AbstractController
         $entityManager->remove($site);
         $entityManager->flush();
 
-        return $this->redirectToRoute('site_list');
+        return $this->redirectToRoute('admin_site_list');
     }
 
     /**
@@ -95,7 +95,7 @@ class SiteController extends AbstractController
             $currentSite->setName($form->get('name')->getData());
             $entityManager->flush();
 
-            return $this->redirectToRoute('site_list');
+            return $this->redirectToRoute('admin_site_list');
         }
 
         return $this->render('site/update.html.twig', [
