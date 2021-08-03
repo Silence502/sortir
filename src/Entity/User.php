@@ -80,6 +80,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $campus;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $img;
+
     public function __construct()
     {
         $this->tripsOrganized = new ArrayCollection();
@@ -300,6 +305,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCampus(?Campus $campus): self
     {
         $this->campus = $campus;
+
+        return $this;
+    }
+
+    public function getImg()
+    {
+        return $this->img;
+    }
+
+    public function setImg($img): self
+    {
+        $this->img = $img;
 
         return $this;
     }

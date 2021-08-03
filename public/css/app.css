@@ -231,3 +231,8 @@ td {
     font-size : 1.2rem;
     margin-bottom : 2rem;
 }
+
+.img-user {
+    width: 100px;
+    height: 100px;
+}

@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CityController extends AbstractController
 {
     /**
-     * @Route("/list", name="list")
+     * @Route("/admin/list", name="list")
      */
     public function list(CityRepository $cityRepository,
                          Request $request): Response
