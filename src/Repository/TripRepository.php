@@ -37,6 +37,9 @@ class TripRepository extends ServiceEntityRepository
         $query = $this
             ->createQueryBuilder('trip');
 
+        $query = $query
+            ->andWhere('trip.state <> 6');
+
         if (!empty($searchData->campus)) {
             $query = $query
                 ->andWhere('trip.campusOrganizer = :campus')

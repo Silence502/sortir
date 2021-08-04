@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Campus;
 use App\Entity\Place;
 use App\Entity\Trip;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -39,17 +40,20 @@ class TripType extends AbstractType
             ])
             ->add('registrationDeadline', DateTimeType::class, [
                 'label' => 'Date limite d\'inscription ',
-
                 'widget' => "single_text",
                 'html5' => false,
                 'format' => 'dd-MM-yyyy',
                 'attr' => [
                     'placeholder' => 'jj-mm-aaaa',
                 ],
-
             ])
             ->add('maxRegistrations', IntegerType::class, [
-                'label' => 'Nombre de places'
+                'label' => 'Nombre de places '
+            ])
+            ->add('campusOrganizer', EntityType::class, [
+                'label' => 'Campus ',
+                'class' => Campus::class,
+                'choice_label' => 'name'
             ])
             ->add('tripInfos', TextareaType::class, [
                 'label' => 'Description et infos '
