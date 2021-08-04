@@ -1,24 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent()}} | Inscription{% endblock %}
+{% block title %}{{ parent() }} | Inscription{% endblock %}
 
 {% block body %}
-    <h3>S'inscrire</h3>
+    <h3>S'<span class="titre_second">inscrire</span></h3>
 
     {{ form_start(registrationForm) }}
 
-    {{ form_row(registrationForm.nickname) }}
-    {{ form_row(registrationForm.firstname) }}
-    {{ form_row(registrationForm.lastname) }}
-    {{ form_row(registrationForm.phoneNumber) }}
-    {{ form_row(registrationForm.email) }}
-    {{ form_row(registrationForm.plainPassword) }}
-    {{ form_row(registrationForm.img) }}
-    {{ form_row(registrationForm.campus) }}
+    <div class="label-align">
+        {{ form_row(registrationForm.nickname) }}
+        {{ form_row(registrationForm.firstname) }}
+        {{ form_row(registrationForm.lastname) }}
+        {{ form_row(registrationForm.phoneNumber) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword) }}
+        {{ form_row(registrationForm.img) }}
+        {{ form_row(registrationForm.campus) }}
+    </div>
 
-    <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
-    <form method="post" action="{{ path('app_login') }}">
-        <button type="submit">Retour</button>
-    </form>
+    <div class="btn_container">
+        <button type="submit" class="btn">Enregistrer</button>
+        {{ form_end(registrationForm) }}
+        <form method="post" action="{{ path('app_login') }}">
+            <button type="submit" class="btn">Retour</button>
+        </form>
+    </div>
 {% endblock %}

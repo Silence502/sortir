@@ -8,50 +8,65 @@
     <section>
         <h3>Détails <span class="titre_second">de la sortie</span></h3>
 
-        <table>
+        <table class="th-align-left">
+            
             <tr>
-                <td>Nom de la sortie:</td>
+                <th>Nom de la sortie</th>
                 <td>{{ trip.name }}</td>
-                <td>Campus</td>
+            </tr>
+            <tr>
+                <th>Campus</th>
                 <td>{{ trip.campusOrganizer.name }}</td>
             </tr>
             <tr>
-                <td>Date et heure de la sortie:</td>
+                <th>Date et heure de la sortie </th>
                 <td>{{ trip.dateStartTime|date('d/m/Y H:i') }}</td>
-                <td>Lieu</td>
+            </tr>
+            <tr>
+                <th>Lieu</th>
                 <td>{{ trip.place.name }}</td>
             </tr>
             <tr>
-                <td>Date limite d'inscription:</td>
+                <th>Date limite d'inscription</th>
                 <td>{{ trip.registrationDeadline|date('d/m/Y') }}</td>
-                <td>Rue</td>
+            </tr>
+            <tr>
+                <th>Rue</th>
                 <td>{{ trip.place.street }}</td>
             </tr>
             <tr>
-                <td>Nombres de places restantes:</td>
+                <th>Nombres de places restantes</th>
                 <td>{{ trip.maxRegistrations - trip.usersRegistered|length }}/{{ trip.maxRegistrations }}</td>
-                <td>Ville</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
                 <td>{{ trip.place.city.name }}, {{ trip.place.city.zipCode }}</td>
             </tr>
             <tr>
-                <td>Durée:</td>
+                <th>Durée</th>
                 <td>{{ trip.duration|date('H:i') }}</td>
-                <td>Latitude</td>
+            </tr>
+            <tr>
+                <th>Latitude</th>
                 <td>{{ (trip.place.latitude)? trip.place.latitude : 'non renseignée' }}</td>
             </tr>
             <tr>
-                <td>Description et infos:</td>
+                <th>Description et infos</th>
                 <td>{{ (trip.tripInfos)? trip.tripInfos : 'Aucune infos renseignée' }}</td>
-                <td>Longitude</td>
+            </tr>
+            <tr>
+                <th>Longitude</th>
                 <td>{{ (trip.place.longitude)? trip.place.longitude : 'non renseignée' }}</td>
             </tr>
         </table>
+
         <br><hr><br>
+
         <table>
             <thead><h3>Liste <span class="titre_second">des participants</span></h3></thead>
             <tr>
-                <td>Pseudo</td>
-                <td>Nom</td>
+                <th>Pseudo</th>
+                <th>Nom</th>
             </tr>
             {% for user in trip.usersRegistered %}
                 <tr style="{% if app.user == user %}background-color: orangered{% endif %}">
