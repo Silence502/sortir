@@ -1,7 +1,24 @@
 <section>
     {{ form_start(searchForm) }}
+    {{ form_row(searchForm.campus) }}
+    {{ form_row(searchForm.q) }}
+
+    <div class="btn_container">
+    {{ form_row(searchForm.dateBeginning) }}
+    {{ form_row(searchForm.dateEnding) }}
+    </div>
+
+    <div class="btn_container">
+        <div class="liste-checkbox">
+    {{ form_row(searchForm.isOrganizer) }}
+    {{ form_row(searchForm.isRegistered) }}
+    {{ form_row(searchForm.isNotRegistered) }}
+    {{ form_row(searchForm.tripPassed) }}
+        </div>
+
     {{ form_widget(searchForm) }}
-    <button>Rechercher</button>
+    <button class="btn btn-recherche">Rechercher</button>
+    </div>
     {{ form_end(searchForm) }}
 </section>
 
@@ -12,7 +29,7 @@
                 <th>Nom de la sortie</th>
                 <th>Date de la sortie</th>
                 <th>Clôture</th>
-                <th>inscrits/places</th>
+                <th>Inscrits/Places</th>
                 <th>Etat</th>
                 <th>Inscrit</th>
                 <th>Organisateur</th>
@@ -32,9 +49,9 @@
                     <td>{{ trip.registrationDeadline|date(
                             "d/m/Y"
                         ) }}</td>
-                    <td>{{ trip.usersRegistered|length }}/{{ trip.maxRegistrations }}</td>
-                    <td>{{ trip.state.wording }}</td>
-                    <td>
+                    <td style="text-align: center">{{ trip.usersRegistered|length }}/{{ trip.maxRegistrations }}</td>
+                    <td style="text-align: center">{{ trip.state.wording }}</td>
+                    <td style="text-align: center">
                         {% for userRegistered in trip.usersRegistered %}
                             {% if userRegistered.id == user.id %}
                                 X
@@ -53,15 +70,16 @@
                     <td>
                         {# DEBUT DE LA COLONNE ACTIONS #}
 
-                        {% if trip.organizer.id == user.id and trip.state.id == 1 %}
-                            <a href="{{ path('sortie_modifier', {'id': trip.id }) }}" title="Modifier la sortie">
+                        {% if trip.organizer.id == user.id and trip.state.id == 1  %}
+                            <button><a href="{{ path('sortie_modifier', {'id': trip.id }) }}" title="Modifier la sortie">
+
                                 Modifier
-                            </a>
+                            </a></button>
                         {% else %}
-                            <a href="{{ path('sortie_details', {'id': trip.id}) }}"
+                            <button><a href="{{ path('sortie_details', {'id': trip.id}) }}"
                                title="Sortie: {{ trip.name }}">
                                 Afficher
-                            </a>
+                            </a></button>
                         {% endif %}
 
                         {% if date(trip.dateStartTime) > date() %}
@@ -73,13 +91,19 @@
                                 <span> - </span>
 
                                 {% if trip.state.id == 1 %}
-                                    <a href="{{ path('sortie_publier', {'id': trip.id}) }}" title="Publier la sortie">
+
+                                    <button>
+                                        <a href="{{ path('sortie_publier', {'id': trip.id}) }}" title="Publier la sortie">Publier</a>
+                                    </button>
+
                                         Publier
-                                    </a>
+                                    </a></button>
                                 {% elseif trip.state.id == 2 %}
-                                    <a href="{{ path('sortie_annuler', {'id': trip.id}) }}" title="Annuler la sortie">
-                                        Annuler
-                                    </a>
+
+                                    <button>
+                                        <a href="{{ path('sortie_annuler', {'id': trip.id}) }}" title="Annuler la sortie">Annuler la sortie</a>
+                                    </button>
+
                                 {% endif %}
 
                             {% else %}
@@ -128,5 +152,5 @@
 </section>
 
 <form method="post" action="{{ path('sortie_creer') }}">
-    <button type="submit">Créer une sortie</button>
+    <button class = "btn" type="submit">Créer une sortie</button>
 </form>

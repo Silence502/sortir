@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Liste des membres{% endblock %}
+
+{% block body %}
+
+
+    <table>
+        <thead>Membres du site</thead>
+        <tr>
+            <th>Pseudo</th>
+            <th>Nom</th>
+            <th>Téléphone</th>
+            <th>Email</th>
+            <th>Campus</th>
+            <th>Sorties</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        {% for user in users %}
+            <tr style="{% if app.user == user %} color: #8DA850{% endif %}">
+                <td>{{ user.nickname }}</td>
+                <td>{{ user.firstname }} {{ user.lastname }}</td>
+                <td>{{ user.phoneNumber }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.campus.name }}</td>
+                <td>{{ user.tripsRegistered.count }}</td>
+                <td>{% if user.isActive == 1 %}Activé{% else %}Désactivé{% endif %}</td>
+                <td>
+                    {% if app.user == user %}
+                        <a href="{{ path('user_update', {'id': app.user.id}) }}">
+                            <button>Modifier</button>
+                        </a>
+                    {% else %}
+                        <a href="{{ path('user_admin_update', {'id': user.id}) }}">
+                            <button>Modifier</button>
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+{% endblock %}

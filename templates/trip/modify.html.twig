@@ -6,18 +6,22 @@
 
 {% block body %}
 
-    <h2>Modifier une sortie</h2>
+    <h3>Modifier <span class="titre_second">une sortie</span></h3>
 
     {{ form_start(tripForm) }}
 
+    <div class="label-align">
     {{ form_row(tripForm.name) }}
-    {{ form_row(tripForm.dateStartTime) }}
+    {{ form_row(tripForm.dateStartTime, {'attr': {'class': "date-heure"}}) }}
     {{ form_row(tripForm.duration) }}
-    {{ form_row(tripForm.registrationDeadline) }}
+    {{ form_row(tripForm.registrationDeadline, {'attr': {'class': "date"}}) }}
     {{ form_row(tripForm.maxRegistrations) }}
     {{ form_row(tripForm.tripInfos) }}
     {{ form_row(tripForm.campusOrganizer) }}
     {{ form_row(tripForm.place) }}
+    </div>
+
+    <div class="btn_container">
     {{ form_row(tripForm.enregistrer) }}
     {{ form_row(tripForm.publier_la_sortie)}}
     {{ form_row(tripForm.supprimer_la_sortie) }}
@@ -25,8 +29,9 @@
     {{ form_end(tripForm) }}
 
     <a href="{{ path('main_index') }}" title="Annuler la création de sortie">
-        <button>Annuler</button>
+        <button class="btn">Annuler</button>
     </a>
+    </div>
 
 {% endblock %}
 

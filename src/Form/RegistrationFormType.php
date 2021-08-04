@@ -66,7 +66,7 @@ class RegistrationFormType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '204800',
+                        'maxSize' => '2048000',
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png'
