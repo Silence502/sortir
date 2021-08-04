@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent()}} | Inscription{% endblock %}
+{% block title %}{{ parent() }} | Inscription{% endblock %}
 
 {% block body %}
     <h2>Profile de {{ app.user.nickname }}</h2>
@@ -9,10 +9,18 @@
     {% endif %}
     <ul>
         <li>Prénom : {{ app.user.firstname }}</li>
-        <li>Nom : {{ app.user.lastname | upper}}</li>
+        <li>Nom : {{ app.user.lastname | upper }}</li>
         <li>Téléphone : {{ app.user.phoneNumber }}</li>
-        <li>Email : {{ app.user.email}}</li>
+        <li>Email : {{ app.user.email }}</li>
         <li>Campus : {{ app.user.campus.name }}</li>
     </ul>
-    <a href="{{ path('user_update', {'id': app.user.id}) }}"><button>Modifier</button></a>
+    {% if app.user.isActive == 1 %}
+        <a href="{{ path('user_update', {'id': app.user.id}) }}">
+            <button>Modifier</button>
+        </a>
+    {% endif %}
+
+    {% if app.user.isActive == 0 %}
+        <h2>Votre compte a été désactivé. Veuillez contacter un administrateur.</h2>
+    {% endif %}
 {% endblock %}

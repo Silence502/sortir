@@ -4,6 +4,8 @@ security:
     password_hashers:
         App\Entity\User:
             algorithm: auto
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
@@ -37,7 +39,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/public, roles: ROLE_INACTIVE }
+        - { path: ^/desactivated, roles: ROLE_INACTIVE }
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/user/admin, roles: ROLE_ADMIN }
         - { path: ^/sortie, roles: ROLE_USER }
         - { path: ^/user, roles: ROLE_USER }

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Erreur{% endblock %}
+
+{% block body %}
+    {% if app.user %}
+        {% if app.user.isActive == 0 %}
+            <h2>Votre compte a été désactivé. Veuillez contacter un administrateur.</h2>
+            <p>admin@admin.com</p>
+        {% endif %}
+    {% endif %}
+{% endblock %}
