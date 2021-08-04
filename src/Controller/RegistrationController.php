@@ -21,10 +21,18 @@ class RegistrationController extends AbstractController
                              UserPasswordHasherInterface $passwordEncoder,
                              SluggerInterface $slugger): Response
     {
+
+//        dd($this->getUser());
+//        if (!$this->isGranted("ROLE_ADMIN")){
+//
+//            return $this->redirectToRoute('main_index');
+//        }
+
         $user = new User();
         $user->setIsActive('true');
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $userImg = $form->get('img')->getData();

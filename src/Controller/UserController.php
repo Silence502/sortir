@@ -11,6 +11,7 @@ use App\Services\UploadImg;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\ORMException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -119,6 +120,7 @@ class UserController extends AbstractController
 
     /**
      * @param UserRepository $userRepository
+     * @param TripRepository $tripRepository
      * @return Response
      * @Route("/admin/list/", name="admin_list")
      */
@@ -138,6 +140,7 @@ class UserController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @param EntityManagerInterface $entityManager
      * @param UserRepository $userRepository
@@ -189,6 +192,11 @@ class UserController extends AbstractController
             $currentUser->setLastname($form->get('lastname')->getData());
             $currentUser->setPhoneNumber($form->get('phoneNumber')->getData());
             $currentUser->setIsActive($form->get('isActive')->getData());
+            if ($form->get('isActive')->getData() == 0){
+                $currentUser->setRoles(["ROLE_INACTIVE"]);
+            } elseif ($form->get('isActive')->getData() == 1){
+                $currentUser->setRoles(["ROLE_USER"]);
+            }
             $entityManager->flush();
 
             return $this->redirectToRoute('user_admin_list');
@@ -199,6 +207,40 @@ class UserController extends AbstractController
             'profileModifierAdminType' => $form->createView(),
             'currentUser' => $currentUser,
             'testUpdate' => $testUpdate
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @param UserRepository $userRepository
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     * @Route("/admin/delete/{id}", name="admin_delete")
+     */
+    public function delete($id,
+                           UserRepository $userRepository,
+                           EntityManagerInterface $entityManager): Response
+    {
+        $user = $userRepository->find($id);
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('user_admin_list');
+    }
+
+    /**
+     * @param $id
+     * @param UserRepository $userRepository
+     * @return Response
+     * @Route("/admin/confirmation/{id}", name="admin_confirmation")
+     */
+    public function confirmDelete($id,
+                                  UserRepository $userRepository): Response
+    {
+        $user = $userRepository->find($id);
+
+        return $this->render('user/delete-confirmation.html.twig', [
+            'user' => $user
         ]);
     }
 }

@@ -5,7 +5,7 @@
 {% block body %}
 
 
-    <table>
+    <table id="container">
         <thead>Membres du site</thead>
         <tr>
             <th>Pseudo</th>
@@ -15,7 +15,8 @@
             <th>Campus</th>
             <th>Sorties</th>
             <th>Status</th>
-            <th>Actions</th>
+            <th>Modifier</th>
+            <th>Supprimer</th>
         </tr>
         {% for user in users %}
             <tr style="{% if app.user == user %} color: #8DA850{% endif %}">
@@ -36,10 +37,13 @@
                             <button>Modifier</button>
                         </a>
                     {% endif %}
+                <td>
+                <td>
+                    <a href="{{ path('user_admin_confirmation', {'id' : user.id}) }}"><button>Supprimer</button></a>
                 </td>
             </tr>
         {% endfor %}
     </table>
-
+    <a href="{{ path('app_register') }}"><button>Ajouter un nouveau membre</button></a>
 
 {% endblock %}

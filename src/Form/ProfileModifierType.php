@@ -49,10 +49,10 @@ class ProfileModifierType extends AbstractType
                 'label' => 'Téléphone ',
                 'required' => false
             ])
-            ->add('isActive', CheckboxType::class, [
-                'label' => 'Activer/Désactiver profils ',
-                'value' => true
-            ])
+//            ->add('isActive', CheckboxType::class, [
+//                'label' => 'Activer/Désactiver profils ',
+//                'value' => true
+//            ])
 //            ->add('tripsRegistered')
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
