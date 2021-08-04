@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Entity\Trip;
+use App\Repository\StateRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 class TripHandler
 {
@@ -24,6 +26,11 @@ class TripHandler
         $intervalRegistrationDeadline = $today->diff($trip->getRegistrationDeadline());
 
         if ($trip->getIsPublished()) {
+            // If trip is cancelled, dont change and return
+            if ($trip->getState()->getId() == 6) {
+                $stateId = 6;
+                return $stateId;
+            }
 
             // stateId = Ouverte
             if ($intervalStartDate->invert == 0
@@ -38,14 +45,9 @@ class TripHandler
             } elseif ($trip->getDateStartTime() == $today) {
                 $stateId = 4;
                 // stateId = Passée
-            } elseif ($intervalStartDate == 1) {
+            } elseif ($intervalStartDate->invert == 1) {
                 $stateId = 5;
             }
-
-//            dd($interval = $today->diff($trip->getDateStartTime()));
-//            dd($interval = $trip->getDateStartTime()->diff($today));
-//            dd($intervalRegistrationDeadline);
-//            dd($stateId);
 
             // stateId = Créée
         } else {
@@ -53,6 +55,21 @@ class TripHandler
         }
 
         return $stateId;
+
+    }
+
+    public function setStateAndFlush(
+        Trip $trip,
+        EntityManagerInterface $entityManager,
+        StateRepository $stateRepository
+    )
+    {
+        $trip->setState(
+            $stateRepository->find($this->setTripState($trip))
+        );
+
+        $entityManager->persist($trip);
+        $entityManager->flush();
 
     }
 }

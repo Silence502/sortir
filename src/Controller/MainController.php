@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Data\SearchTripData;
 use App\Entity\User;
 use App\Form\SearchTripForm;
+use App\Repository\StateRepository;
 use App\Repository\TripRepository;
 use App\Repository\UserRepository;
+use App\Services\TripHandler;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +25,11 @@ class MainController extends AbstractController
     public function index(TripRepository $tripRepository,
                           UserRepository $userRepository,
                           AuthenticationUtils $authenticationUtils,
-                          Request $request): Response
+                          Request $request,
+                          TripHandler $tripHandler,
+                          EntityManagerInterface $entityManager,
+                          StateRepository $stateRepository
+    ): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
         if ($this->getUser() == null) {
@@ -43,9 +50,11 @@ class MainController extends AbstractController
         $searchTripForm = $this->createForm(SearchTripForm::class, $data);
         $searchTripForm->handleRequest($request);
 
-
-
         $trips = $tripRepository->findSearch($data, $user);
+
+        foreach ($trips as $trip) {
+            $tripHandler->setStateAndFlush($trip, $entityManager, $stateRepository);
+        }
 
         return $this->render('main/index.html.twig',[
             'trips' => $trips,

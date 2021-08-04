@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Data\SearchTripData;
 use App\Entity\Trip;
 use App\Entity\User;
+use App\Form\CancelTripType;
 use App\Form\SearchTripForm;
 use App\Form\TripType;
 use App\Repository\StateRepository;
@@ -72,7 +73,8 @@ class TripController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         UserRepository $userRepository,
-        StateRepository $stateRepository
+        StateRepository $stateRepository,
+        TripHandler $tripHandler
     ): Response
     {
         $trip = new Trip();
@@ -96,6 +98,10 @@ class TripController extends AbstractController
             if ($tripForm->get('publier_la_sortie')->isClicked()) {
                 $trip->setIsPublished(true);
             }
+
+            $trip->setState(
+                $stateRepository->find($tripHandler->setTripState($trip))
+            );
 
             $entityManager->persist($trip);
             $entityManager->flush();
@@ -133,6 +139,7 @@ class TripController extends AbstractController
         if ($tripForm->get('supprimer_la_sortie')->isClicked()) {
             $entityManager->remove($trip);
             $entityManager->flush();
+
             $this->addFlash('success', 'Sortie supprimée');
             return $this->redirectToRoute('main_index');
         }
@@ -171,11 +178,9 @@ class TripController extends AbstractController
     }
 
     /**
-     * @Route("/publier/{id}", name="publier"
+     * @Route("/publier/{id}", name="publier")
      */
-    /*
     public function publish(
-        Request $request,
         int $id,
         TripRepository $tripRepository,
         EntityManagerInterface $entityManager
@@ -187,9 +192,44 @@ class TripController extends AbstractController
         $entityManager->persist($trip);
         $entityManager->flush();
 
-        $this->redirectToRoute('sortie_details', ['id' => $trip->getId()]);
+        return $this->redirectToRoute('sortie_details', [
+            'id' => $trip->getId()
+        ]);
     }
-    */
+
+    /**
+     * @Route("/annuler/{id}", name="annuler")
+     */
+    public function cancel(
+        Request $request,
+        int $id,
+        TripRepository $tripRepository,
+        UserRepository $userRepository,
+        StateRepository $stateRepository,
+        EntityManagerInterface $entityManager,
+        TripHandler $tripHandler
+    ): Response
+    {
+
+        $trip = $tripRepository->find($id);
+        $tripForm = $this->createForm(CancelTripType::class, $trip);
+        $tripForm->handleRequest($request);
+
+        if ($tripForm->isSubmitted() && $tripForm->isValid()) {
+
+            $trip->setState($stateRepository->find(6));
+
+            $entityManager->persist($trip);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Sortie supprimée');
+            return $this->redirectToRoute('main_index');
+        }
+        return $this->render('trip/cancel.html.twig', [
+            'trip' => $trip,
+            'tripForm' => $tripForm->createView()
+        ]);
+    }
 
     /**
      * @Route("/seDesister/{id}", name="seDesister")
