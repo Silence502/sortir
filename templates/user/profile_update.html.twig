@@ -7,7 +7,7 @@
     <h3>Modification <span class="titre_second"> du profil de {{ currentUser.nickname }}</span></h3>
 
     {% if app.user.img %}
-        <img class="img-user" src="{{ asset('img_profile/' ~ currentUser.img) }}" alt="Image de profil">
+        <img class="img-user img-center" src="{{ asset('img_profile/' ~ currentUser.img) }}" alt="Image de profil">
     {% endif %}
 
     {{ form_start(profileModifierType) }}
@@ -20,11 +20,17 @@
     {{ form_row(profileModifierType.plainPassword) }}
 
     {{ form_row(profileModifierType.img) }}
+
+    </div>
+
+    <div class="btn_container">
     <button type="submit" class="btn">Valider</button>
 
     {{ form_end(profileModifierType) }}
     <a href="{{ path('user_profile', {'id': app.user.id}) }}">
-        <button type="submit">Annuler</button>
+        <button type="submit" class="btn">Annuler</button>
     </a>
+
+    </div>
 
 {% endblock %}
