@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Data\SearchTripData;
+use App\Entity\User;
 use App\Form\SearchTripForm;
 use App\Repository\StateRepository;
 use App\Repository\TripRepository;
 use App\Repository\UserRepository;
 use App\Services\TripHandler;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,6 +41,11 @@ class MainController extends AbstractController
             $this->getUser()->getUserIdentifier()
         );
 
+
+        if ($user->getIsActive() == 0){
+            return $this->redirectToRoute('desactivated');
+        }
+
         $data = new SearchTripData();
         $searchTripForm = $this->createForm(SearchTripForm::class, $data);
         $searchTripForm->handleRequest($request);
@@ -54,5 +61,15 @@ class MainController extends AbstractController
             'user' => $user,
             'searchForm' => $searchTripForm->createView()
         ]);
+    }
+
+    /**
+     * @IsGranted("ROLE_INACTIVE")
+     * @return Response
+     * @Route("/desactivated", name="desactivated")
+     */
+    public function desactivated(): Response
+    {
+        return $this->render('errors/desactivated.html.twig');
     }
 }

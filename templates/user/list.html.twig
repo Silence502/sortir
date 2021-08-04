@@ -5,7 +5,7 @@
 {% block body %}
 
 
-    <table>
+    <table id="container">
         <thead>Membres du site</thead>
         <tr>
             <th>Pseudo</th>
@@ -36,10 +36,12 @@
                             <button>Modifier</button>
                         </a>
                     {% endif %}
-                </td>
+                    -
+                    <a href="{{ path('user_admin_confirmation', {'id' : user.id}) }}"><button>Supprimer</button></a>
+                <td>
             </tr>
         {% endfor %}
     </table>
-
+    <a href="{{ path('app_register') }}"><button class="btn">Ajouter un nouveau membre</button></a>
 
 {% endblock %}
