@@ -21,8 +21,8 @@
     <div class="btn_container">
         <button type="submit" class="btn">Enregistrer</button>
         {{ form_end(registrationForm) }}
-        <form method="post" action="{{ path('app_login') }}">
+        <a href="{{ path('app_login') }}">
             <button type="submit" class="btn">Retour</button>
-        </form>
+        </a>
     </div>
 {% endblock %}
