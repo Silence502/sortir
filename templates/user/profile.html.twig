@@ -5,7 +5,7 @@
 {% block body %}
     <h3>Profil <span class="titre_second"> de {{ app.user.nickname }}</span></h3>
     {% if app.user.img %}
-        <img class="img-user" src="{{ asset('img_profile/' ~ app.user.img) }}" alt="Image de profil">
+        <img class="img-user img-center" src="{{ asset('img_profile/' ~ app.user.img) }}" alt="Image de profil">
     {% endif %}
     <ul class="li-format">
     
