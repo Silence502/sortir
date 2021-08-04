@@ -19,19 +19,6 @@
 
 <header>
     {% include 'inc/nav.html.twig' %}
-
-    {% if app.user %}
-
-        <div class="user-container">
-            <p>Date du jour : {{ "now" | date('d/m/Y') }}</p>
-            {% if app.user %}
-                <p>{{ app.user.nickname }}</p>
-            {% else %}
-                <p>Non connecté(e)</p>
-            {% endif %}
-        </div>
-
-    {% endif %}
 </header>
 
 <div class="container">
@@ -48,14 +35,9 @@
         {% block body %}{% endblock %}
     </main>
     <footer></footer>
-    {% if app.user %}
-        {% if app.user.isActive == 0 %}
-            <h2>Votre compte a été désactivé. Veuillez contacter un administrateur.</h2>
-        {% endif %}
-    {% endif %}
 
 </div>
 
-
+<script src="{{ asset('js/admin-events.js') }}"></script>
 </body>
 </html>

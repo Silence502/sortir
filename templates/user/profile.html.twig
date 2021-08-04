@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent()}} | Inscription{% endblock %}
+{% block title %}{{ parent() }} | Inscription{% endblock %}
 
 {% block body %}
     <h3>Profil <span class="titre_second"> de {{ app.user.nickname }}</span></h3>
@@ -10,15 +10,19 @@
     <ul class="li-format">
     
         <li>Prénom : {{ app.user.firstname }}</li>
-        <li>Nom : {{ app.user.lastname | upper}}</li>
+        <li>Nom : {{ app.user.lastname | upper }}</li>
         <li>Téléphone : {{ app.user.phoneNumber }}</li>
-        <li>Email : {{ app.user.email}}</li>
+        <li>Email : {{ app.user.email }}</li>
         <li>Campus : {{ app.user.campus.name }}</li>
     </ul>
 
-    <form method="post" action="{{ path('user_update', {'id': app.user.id}) }}">
-        <button class = "btn btn-recherche" type="submit">Modifier</button>
-    </form>
+    {% if app.user.isActive == 1 %}
+        <a href="{{ path('user_update', {'id': app.user.id}) }}">
+            <button class="btn">Modifier</button>
+        </a>
+    {% endif %}
 
+    {% if app.user.isActive == 0 %}
+        <h2>Votre compte a été désactivé. Veuillez contacter un administrateur.</h2>
+    {% endif %}
 {% endblock %}
-
