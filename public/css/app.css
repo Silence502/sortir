@@ -44,9 +44,9 @@ a:hover {
         color: #95b258;
 }
 
-/*img {*/
-/*    max-width: 100%;*/
-/*}*/
+.img-center{
+    margin : 50px;
+}
 
 /*body > .container {*/
 /*    display: flex;*/
