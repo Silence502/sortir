@@ -4,20 +4,20 @@
     {{ form_row(searchForm.q) }}
 
     <div class="btn_container">
-    {{ form_row(searchForm.dateBeginning) }}
-    {{ form_row(searchForm.dateEnding) }}
+        {{ form_row(searchForm.dateBeginning) }}
+        {{ form_row(searchForm.dateEnding) }}
     </div>
 
     <div class="btn_container">
         <div class="liste-checkbox">
-    {{ form_row(searchForm.isOrganizer) }}
-    {{ form_row(searchForm.isRegistered) }}
-    {{ form_row(searchForm.isNotRegistered) }}
-    {{ form_row(searchForm.tripPassed) }}
+            {{ form_row(searchForm.isOrganizer) }}
+            {{ form_row(searchForm.isRegistered) }}
+            {{ form_row(searchForm.isNotRegistered) }}
+            {{ form_row(searchForm.tripPassed) }}
         </div>
 
-    {{ form_widget(searchForm) }}
-    <button class="btn btn-recherche">Rechercher</button>
+        {{ form_widget(searchForm) }}
+        <button class="btn btn-recherche">Rechercher</button>
     </div>
     {{ form_end(searchForm) }}
 </section>
@@ -60,26 +60,27 @@
                     </td>
                     {% if trip.organizer.id == app.user.id %}
                         <td>
-                            <a href="{{ path('user_profile', {'id' : app.user.id}) }}">{{ trip.organizer.firstname }} {{ trip.organizer.lastname | first }}
-                                .</a></td>
+                            <a href="{{ path('user_profile', {'id' : app.user.id}) }}">{{ trip.organizer.firstname }} {{ trip.organizer.lastname | first }}.</a>
+                        </td>
                     {% else %}
                         <td>
-                            <a href="{{ path('user_show', {'id' : trip.organizer.id}) }}">{{ trip.organizer.firstname }} {{ trip.organizer.lastname | first }}
-                                .</a></td>
+                            <a href="{{ path('user_show', {'id' : trip.organizer.id}) }}">{{ trip.organizer.firstname }} {{ trip.organizer.lastname | first }}.</a>
+                        </td>
                     {% endif %}
                     <td>
                         {# DEBUT DE LA COLONNE ACTIONS #}
 
-                        {% if trip.organizer.id == user.id and trip.state.id == 1  %}
-                            <button><a href="{{ path('sortie_modifier', {'id': trip.id }) }}" title="Modifier la sortie">
+                        {% if trip.organizer.id == user.id and trip.state.id == 1 %}
+                            <button><a href="{{ path('sortie_modifier', {'id': trip.id }) }}"
+                                       title="Modifier la sortie">
 
-                                Modifier
-                            </a></button>
+                                    Modifier
+                                </a></button>
                         {% else %}
                             <button><a href="{{ path('sortie_details', {'id': trip.id}) }}"
-                               title="Sortie: {{ trip.name }}">
-                                Afficher
-                            </a></button>
+                                       title="Sortie: {{ trip.name }}">
+                                    Afficher
+                                </a></button>
                         {% endif %}
 
                         {% if date(trip.dateStartTime) > date() %}
@@ -93,13 +94,15 @@
                                 {% if trip.state.id == 1 %}
 
                                     <button>
-                                        <a href="{{ path('sortie_publier', {'id': trip.id}) }}" title="Publier la sortie">Publier</a>
+                                        <a href="{{ path('sortie_publier', {'id': trip.id}) }}"
+                                           title="Publier la sortie">Publier</a>
                                     </button>
 
                                 {% elseif trip.state.id == 2 %}
 
                                     <button>
-                                        <a href="{{ path('sortie_annuler', {'id': trip.id}) }}" title="Annuler la sortie">Annuler la sortie</a>
+                                        <a href="{{ path('sortie_annuler', {'id': trip.id}) }}"
+                                           title="Annuler la sortie">Annuler la sortie</a>
                                     </button>
 
                                 {% endif %}
@@ -124,16 +127,20 @@
 
                                         <span> - </span>
 
-                                        <a href="{{ path('sortie_sInscrire',{id: trip.id}) }}" title="S'inscrire">
-                                            S'inscrire
-                                        </a>
+                                        <button>
+                                            <a href="{{ path('sortie_sInscrire',{id: trip.id}) }}" title="S'inscrire">
+                                                S'inscrire
+                                            </a>
+                                        </button>
                                     {% else %}
 
                                         <span> - </span>
 
-                                        <a href="{{ path('sortie_seDesister',{id: trip.id}) }}" title="Se désister">
-                                            Se désister
-                                        </a>
+                                        <button>
+                                            <a href="{{ path('sortie_seDesister',{id: trip.id}) }}" title="Se désister">
+                                                Se désister
+                                            </a>
+                                        </button>
                                     {% endif %}
                                 {% endif %}
                             {% endif %}
@@ -150,5 +157,5 @@
 </section>
 
 <form method="post" action="{{ path('sortie_creer') }}">
-    <button class = "btn" type="submit">Créer une sortie</button>
+    <button class="btn" type="submit">Créer une sortie</button>
 </form>
