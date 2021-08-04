@@ -3,11 +3,12 @@
 {% block title %}{{ parent() }} | Log in!{% endblock %}
 
 {% block body %}
-    <h3>Se <span class="titre_second">connecter</span></h3>
-    <form method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+<h3>Se <span class="titre_second">connecter</span></h3>
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
 
         <div class="label-align">
             <label for="inputEmail">Email</label>
@@ -42,3 +43,4 @@
         </div>
     </form>
 {% endblock %}
+
