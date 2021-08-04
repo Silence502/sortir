@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent()}} | Log in!{% endblock %}
+{% block title %}{{ parent() }} | Log in!{% endblock %}
 
 {% block body %}
     <h3>Se <span class="titre_second">connecter</span></h3>
@@ -10,34 +10,40 @@
         {% endif %}
 
         <div class="label-align">
-        <label for="inputEmail">Email</label>
-        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
-               autocomplete="email" required autofocus>
+            <label for="inputEmail">Email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
+                   autocomplete="email" required autofocus>
 
-        <div>
-        <label for="inputPassword">Mot de passe</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password"
-               required>
-        </div>
+            <div>
+                <label for="inputPassword">Mot de passe</label>
+                <input type="password" name="password" id="inputPassword" class="form-control"
+                       autocomplete="current-password"
+                       required>
+            </div>
 
-        <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}"
+            >
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Se souvenir de moi
-            </label>
-        </div>
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Se souvenir de moi
+                </label>
+            </div>
         </div>
 
         <div class="btn_container">
-        <button class="btn" type="submit">
-            Connexion
-        </button>
-
-    <form method="post" action="{{ path('app_register') }}">
-        <button class ="btn">S'inscrire</button>
-    </form>
+            <button class="btn" type="submit">
+                Connexion
+            </button>
         </div>
+    </form>
+
+    <br>
+
+    <div>
+        <form method="post" action="{{ path('app_register') }}">
+            <button class="btn">S'inscrire</button>
+        </form>
+    </div>
 {% endblock %}

@@ -191,13 +191,14 @@ nav li {
     color: #8DA850;
 }
 
-.participant-container {
+.user-container {
     display : inline-block;
     border-width:1px;
     border-style:solid;
     border-color:white;
     padding : 0.5rem 1rem;
     float :right;
+    margin : 50px;
 }
 
 table {
