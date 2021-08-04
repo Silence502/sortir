@@ -21,20 +21,20 @@
 
 
 <div class="container">
-<main>
-    {# read and display all flash messages #}
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="flash-{{ label }}">
-                {{ message }}
-            </div>
+    <main>
+        {# read and display all flash messages #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
 
-    {% block body %}{% endblock %}
-</main>
+        {% block body %}{% endblock %}
+    </main>
 
-<footer></footer>
+    <footer></footer>
 
 </div>
 </body>
