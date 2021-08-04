@@ -15,8 +15,7 @@
             <th>Campus</th>
             <th>Sorties</th>
             <th>Status</th>
-            <th>Modifier</th>
-            <th>Supprimer</th>
+            <th>Actions</th>
         </tr>
         {% for user in users %}
             <tr style="{% if app.user == user %} color: #8DA850{% endif %}">
@@ -37,13 +36,12 @@
                             <button>Modifier</button>
                         </a>
                     {% endif %}
-                <td>
-                <td>
+                    -
                     <a href="{{ path('user_admin_confirmation', {'id' : user.id}) }}"><button>Supprimer</button></a>
-                </td>
+                <td>
             </tr>
         {% endfor %}
     </table>
-    <a href="{{ path('app_register') }}"><button>Ajouter un nouveau membre</button></a>
+    <a href="{{ path('app_register') }}"><button class="btn">Ajouter un nouveau membre</button></a>
 
 {% endblock %}
