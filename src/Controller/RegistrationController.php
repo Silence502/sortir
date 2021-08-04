@@ -22,11 +22,9 @@ class RegistrationController extends AbstractController
                              SluggerInterface $slugger): Response
     {
 
-//        dd($this->getUser());
-//        if (!$this->isGranted("ROLE_ADMIN")){
-//
-//            return $this->redirectToRoute('main_index');
-//        }
+        if ($this->getUser() != null){
+            return $this->redirectToRoute('main_index');
+        }
 
         $user = new User();
         $user->setIsActive('true');
