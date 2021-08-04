@@ -27,18 +27,19 @@
     {{ form_row(profileModifierAdminType.isActive) }}
     {% endif %}
     {{ form_row(profileModifierAdminType.img) }}
+    <div>
     <button type="submit" class="btn">Valider</button>
 
     {{ form_end(profileModifierAdminType) }}
 
     {% if testUpdate == true %}
     <a href="{{ path('user_admin_list') }}">
-    <button type="submit">Annuler</button>
+    <button class="btn" type="button">Annuler</button>
     </a>
     {% else %}
     <a href="{{ path('user_profile', {'id': app.user.id}) }}">
-    <button type="submit">Annuler</button>
+    <button class="btn" type="button">Annuler</button>
     </a>
     {% endif %}
-
+    </div>
     {% endblock %}
