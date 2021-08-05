@@ -13,15 +13,16 @@
     {{ form_start(tripForm, {attr: {'novalidate': 'novalidate'}}) }}
 
     <div class="label-align">
-        {{ form_row(tripForm.name) }}
-        {{ form_row(tripForm.dateStartTime, {'attr': {'class': "date-heure"}}) }}
-        {{ form_row(tripForm.duration) }}
-        {{ form_row(tripForm.registrationDeadline, {'attr': {'class': "date"}}) }}
-        {{ form_row(tripForm.maxRegistrations) }}
-        {{ form_row(tripForm.tripInfos) }}
-        {{ form_row(tripForm.place) }}
-        {{ form_row(tripForm.campusOrganizer) }}
-    </div>
+    {{ form_row(tripForm.name) }}
+    {{ form_row(tripForm.dateStartTime, {'attr': {'class': "date-heure"}}) }}
+    {{ form_row(tripForm.duration) }}
+    {{ form_row(tripForm.registrationDeadline, {'attr': {'class': "date"}}) }}
+    {{ form_row(tripForm.maxRegistrations) }}
+    {{ form_row(tripForm.tripInfos) }}
+    {{ form_row(tripForm.place) }}
+    {{ form_row(tripForm.campusOrganizer, {'attr' : {'style' : 'display: none'}}) }}
+    <label for="site">Campus</label>
+    <input name="site" type="text" disabled value="{{ site.campusOrganizer.name }}">
 
     <div class="btn_container">
         {{ form_row(tripForm.enregistrer, {'attr': {'class': "btn"}}) }}
@@ -29,12 +30,10 @@
         {{ form_row(tripForm.supprimer_la_sortie, {'attr': {'style': 'display: none'}}) }}
 
         {{ form_end(tripForm) }}
-        {# <a href="{{ path('sortie_liste') }}" title="Annuler la création de sortie"> #}
-        {# <button>Annuler</button> #}
-        {# </a> #}
-        <form method="post" action="{{ path('main_index') }}">
-            <button class="btn" type="submit">Annuler</button>
-        </form>
-    </div>
+        <a href="{{ path('main_index') }}">
+            <button class="btn" type="button">Annuler</button>
+        </a>
 
+        <a href="{{ path('place_create') }}"><button class="btn" type="button">Ajouter un lieu</button></a>
+    </div>
 {% endblock %}

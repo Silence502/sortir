@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Nouveau lieu{% endblock %}
+
+{% block body %}
+    {{ form_start(placeForm) }}
+    <div class="label-align">
+    {{ form_row(placeForm.name) }}
+    {{ form_row(placeForm.street) }}
+    {{ form_row(placeForm.city) }}
+    {{ form_row(placeForm.longitude) }}
+    {{ form_row(placeForm.latitude) }}
+    <button class="btn">Créer</button>
+    <a href="{{ path('sortie_creer') }}"><button class="btn" type="button">Annuler</button></a>
+
+    {{ form_end(placeForm) }}
+    <div class="label-align">
+{% endblock %}
