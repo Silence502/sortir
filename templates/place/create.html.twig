@@ -3,6 +3,9 @@
 {% block title %}{{ parent() }} | Nouveau lieu{% endblock %}
 
 {% block body %}
+    <h3>
+        Ajouter <span class="titre_second">un lieu</span>
+    </h3>
     {{ form_start(placeForm) }}
     <div class="label-align">
     {{ form_row(placeForm.name) }}
@@ -10,9 +13,14 @@
     {{ form_row(placeForm.city) }}
     {{ form_row(placeForm.longitude) }}
     {{ form_row(placeForm.latitude) }}
-    <button class="btn">Créer</button>
-    <a href="{{ path('sortie_creer') }}"><button class="btn" type="button">Annuler</button></a>
-
+    <button class="btn">Ajouter ce lieu</button>
+    <a href="{{ path('city_create') }}">
+        <button class="btn" type="button">Ajouter une ville</button>
+    </a>
+    <a href="{{ path('sortie_creer') }}">
+        <button class="btn" type="button">Annuler</button>
+    </a>
     {{ form_end(placeForm) }}
+
     <div class="label-align">
 {% endblock %}

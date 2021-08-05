@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Créer une sortie{% endblock %}
+
+{% block body %}
+    <h3>
+        Ajouter <span class="titre_second">une ville</span>
+    </h3>
+    {{ form_start(cityForm) }}
+    <div class="label-align">
+        {{ form_row(cityForm.name, {'label' : 'Nom de la ville '}) }}
+        {{ form_row(cityForm.zipCode, {'label' : 'Code postal '}) }}
+        <button class="btn" type="submit">Ajouter</button>
+        <a href="{{ path('place_create') }}">
+            <button class="btn" type="button">Annuler</button>
+        </a>
+        {{ form_end(cityForm) }}
+    </div>
+{% endblock %}

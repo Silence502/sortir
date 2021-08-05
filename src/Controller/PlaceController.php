@@ -32,20 +32,11 @@ class PlaceController extends AbstractController
         if ($placeForm->isSubmitted() && $placeForm->isValid()){
             $entityManager->persist($place);
             $entityManager->flush();
-        }
-
-        $city = new City();
-        $cityForm = $this->createForm(CityType::class, $city);
-        $cityForm->handleRequest($request);
-
-        if ($cityForm->isSubmitted() && $cityForm->isValid()){
-            $entityManager->persist($city);
-            $entityManager->flush();
+            return $this->redirectToRoute('sortie_creer');
         }
 
         return $this->render('place/create.html.twig', [
             'placeForm' => $placeForm->createView(),
-            'cityForm' => $cityForm->createView()
         ]);
     }
 }

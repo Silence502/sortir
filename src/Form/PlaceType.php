@@ -27,8 +27,12 @@ class PlaceType extends AbstractType
             ->add('street', TextType::class, [
                 'label' => 'Adresse '
             ])
-            ->add('latitude', IntegerType::class)
-            ->add('longitude', IntegerType::class)
+            ->add('latitude', IntegerType::class, [
+                'required' => false
+            ])
+            ->add('longitude', IntegerType::class, [
+                'required' => false
+            ])
         ;
     }
 

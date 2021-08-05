@@ -249,6 +249,9 @@ td {
     height: 100px;
 }
 
+.active{
+    color: #8DA850;
+}
 /*.style-square-img{*/
 /*    width: 100px;*/
 /*    height: 100px;*/

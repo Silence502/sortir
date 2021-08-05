@@ -30,10 +30,11 @@
         {{ form_row(tripForm.supprimer_la_sortie, {'attr': {'style': 'display: none'}}) }}
 
         {{ form_end(tripForm) }}
+        <a href="{{ path('place_create') }}">
+            <button class="btn" type="button">Ajouter un lieu</button>
+        </a>
         <a href="{{ path('main_index') }}">
             <button class="btn" type="button">Annuler</button>
         </a>
-
-        <a href="{{ path('place_create') }}"><button class="btn" type="button">Ajouter un lieu</button></a>
     </div>
 {% endblock %}

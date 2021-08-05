@@ -97,4 +97,27 @@ class CityController extends AbstractController
             'currentCity' => $currentCity
         ]);
     }
+
+    /**
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     * @Route("/create", name="create")
+     */
+    public function create(Request $request,
+                           EntityManagerInterface  $entityManager): Response
+    {
+        $city = new City();
+        $cityForm = $this->createForm(CityType::class, $city);
+        $cityForm->handleRequest($request);
+
+        if ($cityForm->isSubmitted() && $cityForm->isValid()){
+            $entityManager->persist($city);
+            $entityManager->flush();
+            return $this->redirectToRoute('place_create');
+        }
+        return $this->render('city/create.html.twig', [
+            'cityForm' => $cityForm->createView()
+        ]);
+    }
 }

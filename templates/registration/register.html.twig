@@ -21,8 +21,15 @@
     <div class="btn_container">
         <button type="submit" class="btn">Enregistrer</button>
         {{ form_end(registrationForm) }}
-        <a href="{{ path('app_login') }}">
-            <button type="button" class="btn">Retour</button>
-        </a>
+
+        {% if app.user %}
+            <a href="{{ path('user_admin_list') }}">
+                <button type="button" class="btn">Retour</button>
+            </a>
+        {% else %}
+            <a href="{{ path('app_login') }}">
+                <button type="button" class="btn">Retour</button>
+            </a>
+        {% endif %}
     </div>
 {% endblock %}
