@@ -4,7 +4,7 @@
 
 {% block body %}
     <h2>Modification de {{ currentUser.nickname }}</h2>
-    {% if app.user.img == false %}
+    {% if app.user.img == true %}
         <img class="img-user" src="{{ asset('img_profile/' ~ currentUser.img) }}" alt="Image de profil">
     {% else %}
         <div style="width: 100px; height: 100px; border: 1px solid white;">

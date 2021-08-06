@@ -5,6 +5,7 @@
 {% block body %}
     <h2>Voulez-vous supprimer cet utilisateur : {{ user.firstname }} {{ user.lastname }} ?</h2>
     <form method="get" action="{{ path('user_admin_delete', {'id': user.id}) }}">
-        <button type="submit">Supprimer</button>
+        <button class="btn" type="submit">Supprimer</button>
     </form>
+    <a href="{{ path('user_admin_list') }}"><button class="btn" type="button">Annuler</button></a>
 {% endblock %}
