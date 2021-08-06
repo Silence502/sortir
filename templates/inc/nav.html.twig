@@ -8,17 +8,16 @@
         {% if app.user %}
 
             <ul>
-                <li><a href="{{ path('main_index') }}">Accueil</a></li>
+                <li><a {% if app.request.get('_route') == 'main_index' %} class="active"{% endif %} href="{{ path('main_index') }}">Accueil</a></li>
                 {% if is_granted(ADMIN) %}
-                    <li><a href="{{ path('city_list') }}">Villes</a></li>
-                    <li><a href="{{ path('admin_site_list') }}">Campus</a></li>
-                    <li><a href="{{ path('user_admin_list') }}">Membres</a></li>
+                    <li><a {% if app.request.get('_route') == 'city_list' %} class="active"{% endif %} href="{{ path('city_list') }}">Villes</a></li>
+                    <li><a {% if app.request.get('_route') == 'admin_site_list' %} class="active"{% endif %} href="{{ path('admin_site_list') }}">Campus</a></li>
+                    <li><a {% if app.request.get('_route') == 'user_admin_list' %} class="active"{% endif %} href="{{ path('user_admin_list') }}">Membres</a></li>
                 {% endif %}
-                <li><a href="{{ path('user_profile', {'id': app.user.id}) }}">Mon profil
+                <li><a {% if app.request.get('_route') == 'user_profile' %} class="active"{% endif %} href="{{ path('user_profile', {'id': app.user.id}) }}">Mon profil
                         <cite>({{ app.user.nickname }})</cite></a></li>
                 <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
             </ul>
         {% endif %}
     </nav>
 </div>
-

@@ -29,15 +29,15 @@
                 <td>
                     {% if app.user == user %}
                         <a href="{{ path('user_update', {'id': app.user.id}) }}">
-                            <button>Modifier</button>
+                            <button disabled>Modifier</button> -
+                            <a href="{{ path('user_admin_confirmation', {'id' : user.id}) }}"><button disabled>Supprimer</button></a>
                         </a>
                     {% else %}
                         <a href="{{ path('user_admin_update', {'id': user.id}) }}">
-                            <button>Modifier</button>
+                            <button>Modifier</button> -
+                            <a href="{{ path('user_admin_confirmation', {'id' : user.id}) }}"><button>Supprimer</button></a>
                         </a>
                     {% endif %}
-                    -
-                    <a href="{{ path('user_admin_confirmation', {'id' : user.id}) }}"><button>Supprimer</button></a>
                 <td>
             </tr>
         {% endfor %}

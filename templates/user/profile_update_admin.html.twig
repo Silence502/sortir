@@ -3,43 +3,47 @@
 {% block title %}{{ parent() }} | Modification profil{% endblock %}
 
 {% block body %}
-    {% set ADMIN = 'ROLE_ADMIN' %}
-<h2>Modification de {{ currentUser.nickname }}</h2>
-{% if app.user.img %}
-    <img class="img-user" src="{{ asset('img_profile/' ~ currentUser.img) }}" alt="Image de profil">
-{% else %}
-    <p>Pas d'image</p>
-{% endif %}
-    {% if currentUser.isActive == 1 %}
-        <cite>Profil activé</cite>
+    <h2>Modification de {{ currentUser.nickname }}</h2>
+    {% if app.user.img == true %}
+        <img class="img-user" src="{{ asset('img_profile/' ~ currentUser.img) }}" alt="Image de profil">
     {% else %}
-        <cite>Profil désactivé</cite>
+        <div style="width: 100px; height: 100px; border: 1px solid white;">
+            <p>Pas d'image</p>
+        </div>
     {% endif %}
+    <div style="margin-bottom: 20px;">
+        {% if currentUser.isActive == 1 %}
+            <cite style="color: green">Profil activé</cite>
+        {% else %}
+            <cite style="color: red">Profil désactivé</cite>
+        {% endif %}
+    </div>
     {{ form_start(profileModifierAdminType) }}
-
+    <div class="label-align">
     {{ form_row(profileModifierAdminType.nickname, {'value' : currentUser.nickname}) }}
     {{ form_row(profileModifierAdminType.firstname, {'value' : currentUser.firstname}) }}
     {{ form_row(profileModifierAdminType.lastname, {'value' : currentUser.lastname}) }}
     {{ form_row(profileModifierAdminType.phoneNumber, {'value' : currentUser.phoneNumber}) }}
-    {% if currentUser.isActive == 1 %}
-    {{ form_row(profileModifierAdminType.isActive, {'attr' : {'checked' : 'checked'}}) }}
-    {% else %}
-    {{ form_row(profileModifierAdminType.isActive) }}
-    {% endif %}
     {{ form_row(profileModifierAdminType.img) }}
-    <div>
-    <button type="submit" class="btn">Valider</button>
-
-    {{ form_end(profileModifierAdminType) }}
-
-    {% if testUpdate == true %}
-    <a href="{{ path('user_admin_list') }}">
-    <button class="btn" type="button">Annuler</button>
-    </a>
-    {% else %}
-    <a href="{{ path('user_profile', {'id': app.user.id}) }}">
-    <button class="btn" type="button">Annuler</button>
-    </a>
-    {% endif %}
     </div>
-    {% endblock %}
+    <div>
+        {% if currentUser.isActive == 1 %}
+            {{ form_row(profileModifierAdminType.isActive, {'attr' : {'checked' : 'checked'}}) }}
+        {% else %}
+            {{ form_row(profileModifierAdminType.isActive) }}
+        {% endif %}
+        <button type="submit" class="btn">Valider</button>
+
+        {{ form_end(profileModifierAdminType) }}
+
+        {% if testUpdate == true %}
+            <a href="{{ path('user_admin_list') }}">
+                <button class="btn" type="button">Annuler</button>
+            </a>
+        {% else %}
+            <a href="{{ path('user_profile', {'id': app.user.id}) }}">
+                <button class="btn" type="button">Annuler</button>
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}

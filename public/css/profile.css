@@ -1,0 +1,22 @@
+.style-profile{
+    /*display: flex;*/
+}
+
+.style-img{
+    /*display: flex;*/
+    width: 100px;
+    height: 100px;
+    border: 1px solid white;
+    text-align: center;
+}
+
+.style-profile table tr th{
+    text-align: left;
+    min-width: 120px;
+    border: 1px solid black;
+}
+
+.style-profile td {
+    border: 1px solid black;
+}
+

@@ -3,11 +3,16 @@
 namespace App\Controller;
 
 use App\Data\SearchTripData;
+use App\Entity\City;
+use App\Entity\Place;
 use App\Entity\Trip;
 use App\Entity\User;
 use App\Form\CancelTripType;
+use App\Form\CityType;
+use App\Form\PlaceType;
 use App\Form\SearchTripForm;
 use App\Form\TripType;
+use App\Repository\CityRepository;
 use App\Repository\StateRepository;
 use App\Repository\TripRepository;
 use App\Repository\UserRepository;
@@ -53,7 +58,7 @@ class TripController extends AbstractController
      * @Route("/details/{id}", name="details")
      */
     public function details(
-        int $id,
+        int            $id,
         TripRepository $tripRepository
     ): Response
     {
@@ -70,18 +75,39 @@ class TripController extends AbstractController
      * @Route("/creer", name="creer")
      */
     public function create(
-        Request $request,
+        Request                $request,
         EntityManagerInterface $entityManager,
-        UserRepository $userRepository,
-        StateRepository $stateRepository,
-        TripHandler $tripHandler
+        UserRepository         $userRepository,
+        StateRepository        $stateRepository,
+        TripHandler            $tripHandler,
+        CityRepository         $cityRepository
     ): Response
     {
         $trip = new Trip();
         $trip->setDateStartTime(new \DateTime('now'));
         $tripForm = $this->createForm(TripType::class, $trip);
-
         $tripForm->handleRequest($request);
+
+//        $place = new Place();
+//        $placeForm = $this->createForm(PlaceType::class, $place);
+//        $placeForm->handleRequest($request);
+//
+//        if ($placeForm->isSubmitted() && $placeForm->isValid()) {
+//            $entityManager->persist($place);
+//            $entityManager->flush();
+//            $this->redirectToRoute('sortie_creer');
+//        }
+
+//        $city = $cityRepository->find($id);
+        $organizer = $userRepository->find($this->getUser());
+        $site = $trip->setCampusOrganizer($organizer->getCampus());
+//        $cityForm = $this->createForm(CityType::class, $city);
+//        $cityForm->handleRequest($request);
+//
+//        if ($cityForm->isSubmitted() && $cityForm->isValid()){
+//            $entityManager->persist($city);
+//            $entityManager->flush();
+//        }
 
         if ($tripForm->isSubmitted() && $tripForm->isValid()) {
             $organizer = $userRepository->find($this->getUser());
@@ -113,7 +139,11 @@ class TripController extends AbstractController
 
         return $this->render('trip/create.html.twig', [
             'tripForm' => $tripForm->createView(),
-            'localDate' => $localDate
+            'localDate' => $localDate,
+//            'placeForm' => $placeForm->createView(),
+//            'cityForm' => $cityForm->createView(),
+//            'city' => $city,
+            'site' => $site
         ]);
     }
 
@@ -121,13 +151,13 @@ class TripController extends AbstractController
      * @Route("/modifier/{id}", name="modifier")
      */
     public function modify(
-        Request $request,
-        int $id,
-        TripRepository $tripRepository,
-        UserRepository $userRepository,
-        StateRepository $stateRepository,
+        Request                $request,
+        int                    $id,
+        TripRepository         $tripRepository,
+        UserRepository         $userRepository,
+        StateRepository        $stateRepository,
         EntityManagerInterface $entityManager,
-        TripHandler $tripHandler
+        TripHandler            $tripHandler
     ): Response
     {
         $trip = $tripRepository->find($id);
@@ -181,8 +211,8 @@ class TripController extends AbstractController
      * @Route("/publier/{id}", name="publier")
      */
     public function publish(
-        int $id,
-        TripRepository $tripRepository,
+        int                    $id,
+        TripRepository         $tripRepository,
         EntityManagerInterface $entityManager
     ): Response
     {
@@ -201,13 +231,13 @@ class TripController extends AbstractController
      * @Route("/annuler/{id}", name="annuler")
      */
     public function cancel(
-        Request $request,
-        int $id,
-        TripRepository $tripRepository,
-        UserRepository $userRepository,
-        StateRepository $stateRepository,
+        Request                $request,
+        int                    $id,
+        TripRepository         $tripRepository,
+        UserRepository         $userRepository,
+        StateRepository        $stateRepository,
         EntityManagerInterface $entityManager,
-        TripHandler $tripHandler
+        TripHandler            $tripHandler
     ): Response
     {
 
@@ -235,9 +265,9 @@ class TripController extends AbstractController
      * @Route("/seDesister/{id}", name="seDesister")
      */
     public function desist(
-        int $id,
-        TripRepository $tripRepository,
-        UserRepository $userRepository,
+        int                    $id,
+        TripRepository         $tripRepository,
+        UserRepository         $userRepository,
         EntityManagerInterface $entityManager
     ): Response
     {
@@ -260,9 +290,9 @@ class TripController extends AbstractController
      * @Route("/sInscrire/{id}", name="sInscrire")
      */
     public function tripRegistration(
-        int $id,
-        TripRepository $tripRepository,
-        UserRepository $userRepository,
+        int                    $id,
+        TripRepository         $tripRepository,
+        UserRepository         $userRepository,
         EntityManagerInterface $entityManager
     ): Response
     {

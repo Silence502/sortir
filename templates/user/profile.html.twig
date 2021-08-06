@@ -4,18 +4,39 @@
 
 {% block body %}
     <h3>Profil <span class="titre_second"> de {{ app.user.nickname }}</span></h3>
-    {% if app.user.img %}
-        <img class="img-user img-center" src="{{ asset('img_profile/' ~ app.user.img) }}" alt="Image de profil">
-    {% endif %}
-    <ul class="li-format">
-    
-        <li>Prénom : {{ app.user.firstname }}</li>
-        <li>Nom : {{ app.user.lastname | upper }}</li>
-        <li>Téléphone : {{ app.user.phoneNumber }}</li>
-        <li>Email : {{ app.user.email }}</li>
-        <li>Campus : {{ app.user.campus.name }}</li>
-    </ul>
-
+    <div class="style-profile">
+        {% if app.user.img == true %}
+            <div>
+                <img class="img-user img-center" src="{{ asset('img_profile/' ~ app.user.img) }}" alt="Image de profil">
+            </div>
+        {% else %}
+            <div  class="style-img">
+                <p>Pas d'image</p>
+            </div>
+        {% endif %}
+        <table>
+            <tr>
+                <th>Prénom</th>
+                <td>{{ app.user.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ app.user.lastname | upper }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone</th>
+                <td>{{ app.user.phoneNumber }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ app.user.email }}</td>
+            </tr>
+            <tr>
+                <th>Campus</th>
+                <td>{{ app.user.campus.name }}</td>
+            </tr>
+        </table>
+    </div>
     {% if app.user.isActive == 1 %}
         <a href="{{ path('user_update', {'id': app.user.id}) }}">
             <button class="btn">Modifier</button>

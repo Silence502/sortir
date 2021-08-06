@@ -44,9 +44,9 @@ a:hover {
         color: #95b258;
 }
 
-.img-center{
-    margin : 50px;
-}
+/*.img-center{*/
+/*    margin : 50px;*/
+/*}*/
 
 /*body > .container {*/
 /*    display: flex;*/
@@ -146,7 +146,7 @@ textarea {
     cursor: pointer;
     padding: 10px 20px;
     margin-right: 20px;
-    font-family: 'Open Sans';
+    font-family: 'Open Sans', serif;
 }
 
 .btn-recherche {
@@ -248,3 +248,16 @@ td {
     width: 100px;
     height: 100px;
 }
+
+.active{
+    color: #8DA850;
+}
+/*.style-square-img{*/
+/*    width: 100px;*/
+/*    height: 100px;*/
+/*    border: 1px solid white;*/
+/*}*/
+
+/*.style-is-active{*/
+/*    margin-bottom: 20px;*/
+/*}*/

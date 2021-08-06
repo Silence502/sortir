@@ -51,7 +51,7 @@ class TripType extends AbstractType
                 'label' => 'Nombre de places '
             ])
             ->add('campusOrganizer', EntityType::class, [
-                'label' => 'Campus ',
+                'label' => false,
                 'class' => Campus::class,
                 'choice_label' => 'name'
             ])
